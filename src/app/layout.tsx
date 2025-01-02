@@ -2,6 +2,8 @@
 import localFont from "next/font/local";
 import type {Metadata} from "next"; // Correct import for custom fonts
 import "./globals.css";
+import SignUpHeader from "@/app/components/SignUpHeader";
+import Header from "@/app/components/Header";
 
 const satoshi = localFont({
     src: [
@@ -54,6 +56,8 @@ export default function RootLayout({
     return (
         <html lang="en">
         <body className={`${satoshi.variable} ${integral.variable}`}>
+        <SignUpHeader></SignUpHeader>
+        <Header></Header>
         {children}
         </body>
         </html>
