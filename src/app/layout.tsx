@@ -9,7 +9,7 @@ const satoshi = localFont({
     src: [
         {
             path: "./fonts/Satoshi-Medium.woff2", // Path to your regular font file
-            weight: "400", // Regular weight
+            weight: "500", // Regular weight
             style: "medium", // Medium style
         },
         {
@@ -30,7 +30,7 @@ const integral = localFont({
         },
         {
             path: "./fonts/Fontspring-DEMO-integralcf-medium.otf", // Path to your regular font file
-            weight: "400", // Regular weight
+            weight: "500", // Regular weight
             style: "medium", // Medium style
         },
         {
