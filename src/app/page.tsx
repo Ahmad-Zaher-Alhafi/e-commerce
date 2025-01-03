@@ -1,7 +1,11 @@
 import WelcomeSection from "@/app/components/WelcomeSection";
 import Products from "@/app/components/Products";
+import Review from "@/app/components/Review";
+import React from "react";
 
 export default function Home() {
+    const numberOfReviews = 5;
+
     return (
         <div className={"home"}>
             <WelcomeSection></WelcomeSection>
@@ -50,6 +54,36 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+
+            <div className={"flex flex-col  pt-[50px] sm:pt-[80px] gap-[24px] sm:gap-[40px]"}>
+                <div className={"flex justify-between items-end custom-paddingX"}>
+                    <span
+                        className={"font-integral font-bold text-[32px] sm:text-[48px] leading-[36px] sm:leading-normal"}>Our happy customers
+                    </span>
+
+                    <div className={"flex justify-end gap-[5px] min-w-[50px]"}>
+                        <img src="/assets/svgs/arrowLeft.svg" alt="casual category image"/>
+                        <img src="/assets/svgs/arrowRight.svg" alt="casual category image"/>
+                    </div>
+                </div>
+
+                <div className={"relative pb-10"}>
+                    <div className={"flex justify-center gap-[20px] overflow-auto hide-scrollbar sm:show-scrollbar"}>
+                        {
+                            [...Array(numberOfReviews)].map(() => {
+                                return <Review rate={5} customerName={"Jasem"}></Review>
+
+                            })
+                        }
+                    </div>
+
+                    <div
+                        className="hidden sm:block absolute top-0 left-0 w-[8%] h-full backdrop-blur-[1.5px]"></div>
+                    <div
+                        className="hidden sm:block absolute top-0 right-0 w-[8%] h-full backdrop-blur-[1.5px]"></div>
+                </div>
+            </div>
         </div>
-    );
+    )
+        ;
 }
