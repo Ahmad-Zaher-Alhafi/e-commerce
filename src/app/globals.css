@@ -20,6 +20,14 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.custom-padding {
-    @apply px-[16px] md:px-[100px];
+.custom-paddingX {
+    @apply px-[16px] sm:px-[7%];
+}
+
+.primary-button {
+    @apply bg-black text-white text-nowrap py-[15px] rounded-[62px] font-satoshi sm:max-w-[210px] w-full;
+}
+
+.secondary-button {
+    @apply border border-black border-opacity-10 text-nowrap rounded-[62px] py-[13px] sm:py-[15px] font-satoshi font-medium sm:max-w-[218px] w-full;
 }

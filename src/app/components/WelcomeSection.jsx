@@ -5,7 +5,7 @@ const WelcomeSection = () => {
         <section className={"relative"}>
 
             <div
-                className={"bg-[#F2F0F1] lg:bg-transparent px-customPaddingX sm:px-[7%] flex flex-col lg:absolute left-0 top-0 " +
+                className={"bg-[#F2F0F1] lg:bg-transparent custom-paddingX flex flex-col lg:absolute left-0 top-0 " +
                     "gap-[20px] pt-[40px] lg:max-w-[40%] z-[10] sm:box-content"}>
                 <div
                     className={"font-integral font-bold text-[clamp(36px,4vw,8rem)] leading-[100%]"}>FIND
@@ -19,7 +19,7 @@ const WelcomeSection = () => {
                 </p>
 
                 <button
-                    className={"bg-black text-white sm:max-w-[210px] text-nowrap py-[15px] px-auto rounded-[62px] mt-[4px] font-satoshi w-full"}>Shop
+                    className={"primary-button mt-[4px]"}>Shop
                     Now
                 </button>
 

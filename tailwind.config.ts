@@ -19,9 +19,6 @@ export default {
             screens: {
                 'xs': '390px', // Custom breakpoint for 390px
             },
-            padding:{
-                "customPaddingX": "16px"
-            }
         },
     },
     plugins: [],
