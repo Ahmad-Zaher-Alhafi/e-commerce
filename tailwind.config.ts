@@ -1,4 +1,5 @@
 import type {Config} from "tailwindcss";
+import {PluginAPI} from "tailwindcss/types/config";
 
 export default {
     content: [
@@ -21,5 +22,21 @@ export default {
             },
         },
     },
-    plugins: [],
+    plugins: [
+        function (pluginAPI: PluginAPI) {
+            const {addUtilities} = pluginAPI;
+
+            addUtilities(
+                {
+                    '.hide-scrollbar': {
+                        'scrollbar-width': 'none',
+                    },
+
+                    '.show-scrollbar': {
+                        'scrollbar-width': "auto",
+                    },
+                },
+            );
+        },
+    ],
 } satisfies Config;
