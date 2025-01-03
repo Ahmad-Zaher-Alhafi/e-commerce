@@ -1,4 +1,5 @@
 import React from 'react'
+import Rate from "@/app/components/Rate";
 
 const Product = ({
                      name = "Product",
@@ -7,8 +8,7 @@ const Product = ({
                      imgUrl = "https://th.bing.com/th/id/OIP.yVFELyec8W3aJSAdeHn4rwHaE8?rs=1&pid=ImgDetMain",
                      salePercent = 20
                  }: { name: string, rate: number, price: number, imgUrl: string, salePercent?: number }) => {
-    const startsCount = Math.floor(rate)
-    const hasHalfStar = rate % 1 !== 0
+
     const finalPrice = salePercent ? Math.floor(price - (price * salePercent / 100)) : price;
 
     return (
@@ -18,22 +18,7 @@ const Product = ({
 
             <span className={"font-satoshi font-bold text-[16px] sm:text-[20px]"}>{name}</span>
 
-            <div className={"flex gap-[5px]"}>
-                {
-                    [...Array(startsCount)].map((_, index) => {
-                        return <img src={"/assets/svgs/star.svg"} alt={"star image"}
-                                    className={"w-[15px] sm:w-[18px]"}/>
-                    })
-                }
-
-                {
-                    hasHalfStar && <img src={"/assets/svgs/halfStar.svg"} alt={"half star image"}/>
-                }
-
-                <span className={"font-satoshi text-[12px] sm:text-[14px]"}>{rate}/<span
-                    className={"opacity-60"}>5</span></span>
-
-            </div>
+            <Rate rate={rate} showRateNumber={true}></Rate>
 
             <div className={"flex gap-[5px] sm:gap-[12px] items-center"}>
                 <span className={"font-satoshi font-bold text-[20px] sm:text-[24px]"}>${finalPrice}</span>
