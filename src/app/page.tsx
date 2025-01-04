@@ -13,7 +13,7 @@ export default function Home() {
             <div className={"flex flex-col gap-[40px] sm:gap-[64px] pt-[50px]"}>
                 <Products title={"New Arrivals"}></Products>
                 <div className={"custom-paddingX"}>
-                    <hr className={"bg-black h-[1px]"}/>
+                    <hr className={"bg-black h-[2px] opacity-10"}/>
                 </div>
                 <Products title={"Top Selling"}></Products>
             </div>
@@ -67,7 +67,7 @@ export default function Home() {
                     </div>
                 </div>
 
-                <div className={"relative pb-10"}>
+                <div className={"relative"}>
                     <div className={"flex justify-center gap-[20px] overflow-auto hide-scrollbar sm:show-scrollbar"}>
                         {
                             [...Array(numberOfReviews)].map(() => {

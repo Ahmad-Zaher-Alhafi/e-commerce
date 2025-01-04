@@ -2,7 +2,7 @@ import React from 'react'
 
 const Header = () => {
     return (
-        <div
+        <header
             className={"header h-[48px] flex justify-between gap-[40px] items-center custom-paddingX py-[40px] md:py-[48px]"}>
             <span className={"flex gap-[16px] items-center"}>
                 <img src="/assets/svgs/dropDown.svg" alt="search icon"/>
@@ -37,7 +37,7 @@ const Header = () => {
                 <img src="/assets/svgs/cart.svg" alt="cart icon"/>
                 <img src="/assets/svgs/profile.svg" alt="profile icon"/>
             </span>
-        </div>
+        </header>
     )
 }
 

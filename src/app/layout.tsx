@@ -4,6 +4,7 @@ import type {Metadata} from "next"; // Correct import for custom fonts
 import "./globals.css";
 import SignUpHeader from "@/app/components/SignUpHeader";
 import Header from "@/app/components/Header";
+import Footer from "@/app/components/Footer";
 
 const satoshi = localFont({
     src: [
@@ -59,6 +60,7 @@ export default function RootLayout({
         <SignUpHeader></SignUpHeader>
         <Header></Header>
         {children}
+        <Footer></Footer>
         </body>
         </html>
     );
