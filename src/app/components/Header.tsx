@@ -3,9 +3,9 @@ import React from 'react'
 const Header = () => {
     return (
         <header
-            className={"header h-[48px] flex justify-between gap-[40px] items-center custom-paddingX py-[40px] md:py-[48px]"}>
+            className={"header h-[48px] flex justify-between gap-[4%] items-center custom-paddingX py-[40px] md:py-[48px]"}>
             <span className={"flex gap-[16px] items-center"}>
-                <img src="/assets/svgs/dropDown.svg" alt="search icon"/>
+                <img src="/assets/svgs/dropDown.svg" alt="search icon" className={"sm:hidden"}/>
                 <span
                     className={"logo font-integral font-bold text-[25px] sm:text-[32px] translate-y-[-3px] sm:translate-y-[-4px]"}>SHOP.CO
                 </span>
