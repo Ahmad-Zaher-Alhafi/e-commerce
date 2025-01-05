@@ -216,7 +216,7 @@ const Footer = () => {
               type="text"
               placeholder="Enter your email address"
               className={
-                "w-full py-[10px] pl-10 pr-4 border rounded-full bg-white font-satoshi text-[14px]"
+                "w-full py-[10px] pl-10 pr-4 rounded-full bg-white font-satoshi text-[14px]"
               }
             ></input>
             <img
