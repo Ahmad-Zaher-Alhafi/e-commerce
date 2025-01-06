@@ -1,9 +1,13 @@
 import WelcomeSection from "@/app/components/WelcomeSection";
 import Products from "@/app/components/Products";
 import Review from "@/app/components/Review";
-import React from "react";
+import React, { Suspense } from "react";
+import { populateDB } from "../../DB/PopulateDB";
+import ProductsSkeleton from "./components/ProductsSkeleton";
 
-export default function Home() {
+export default async function Home() {
+  await populateDB();
+
   const numberOfReviews = 5;
 
   return (
@@ -11,11 +15,17 @@ export default function Home() {
       <WelcomeSection></WelcomeSection>
 
       <div className={"flex flex-col gap-[40px] sm:gap-[64px] pt-[50px]"}>
-        <Products title={"New Arrivals"}></Products>
+        <Suspense fallback={<ProductsSkeleton title="New Arrivals" />}>
+          <Products title={"New Arrivals"}></Products>
+        </Suspense>
+
         <div className={"custom-paddingX"}>
           <hr className={"bg-black h-[2px] opacity-10"} />
         </div>
-        <Products title={"Top Selling"}></Products>
+
+        <Suspense fallback={<ProductsSkeleton title="Top Selling" />}>
+          <Products title={"Top Selling"}></Products>
+        </Suspense>
       </div>
 
       <div className={"custom-paddingX"}>

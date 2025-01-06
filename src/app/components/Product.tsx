@@ -13,7 +13,7 @@ const Product = ({
   rate: number;
   price: number;
   imgUrl: string;
-  salePercent?: number;
+  salePercent?: number | null;
 }) => {
   const finalPrice = salePercent
     ? Math.floor(price - (price * salePercent) / 100)
@@ -26,6 +26,7 @@ const Product = ({
         height={200}
         src={imgUrl}
         alt="product image"
+        unoptimized
         className={
           "h-[200px] sm:h-[298px] rounded-[13px] sm:rounded-[20px] border-2 border-[#F0EEED]"
         }

@@ -30,6 +30,7 @@ model Product {
   salePercent Int?
   reviews     Review[] @relation("ProductToReview")
   numInStock  Int
+  imageUrl    String
 }
 
 model Review {

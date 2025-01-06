@@ -1,11 +1,7 @@
 import React from "react";
-import Product from "@/app/components/Product";
-import { getProducts } from "../../../DB/productController";
-import { Product as ProductType } from "@prisma/client"; // Import your Product type from Prisma
+import ProductSkeleton from "./ProductSkeleton";
 
-const Products = async ({ title }: { title: string }) => {
-  const products = await getProducts();
-
+const ProductsSkeleton = ({ title }: { title: string }) => {
   return (
     <div className={"flex flex-col gap-[32px] sm:gap-[55px] items-center"}>
       <span className={"font-integral text-[clamp(32px,4vw,48px)] font-bold"}>
@@ -22,16 +18,12 @@ const Products = async ({ title }: { title: string }) => {
             "grid grid-flow-col auto-cols-[minmax(198px,1fr)] sm:auto-cols-[minmax(295px,1fr)] gap-[16px] sm:gap-[20px] px-customPaddingX w-full overflow-auto"
           }
         >
-          {products?.map((product: ProductType) => (
-            <Product
-              key={product.id}
-              name={product.name}
-              rate={product.rate}
-              price={product.price}
-              imgUrl={product.imageUrl}
-              salePercent={product.salePercent}
-            ></Product>
-          ))}
+          <ProductSkeleton></ProductSkeleton>
+          <ProductSkeleton></ProductSkeleton>
+          <ProductSkeleton></ProductSkeleton>
+          <ProductSkeleton></ProductSkeleton>
+          <ProductSkeleton></ProductSkeleton>
+          <ProductSkeleton></ProductSkeleton>
         </div>
 
         <button className={"secondary-button"}>View all</button>
@@ -40,4 +32,4 @@ const Products = async ({ title }: { title: string }) => {
   );
 };
 
-export default Products;
+export default ProductsSkeleton;
