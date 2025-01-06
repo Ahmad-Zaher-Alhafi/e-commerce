@@ -28,7 +28,7 @@ const Product = ({
         alt="product image"
         unoptimized
         className={
-          "h-[200px] sm:h-[298px] rounded-[13px] sm:rounded-[20px] border-2 border-[#F0EEED]"
+          "h-[200px] sm:h-[298px] rounded-[13px] sm:rounded-[20px] border-2 border-[#F0EEED] p-[20px]"
         }
       />
 

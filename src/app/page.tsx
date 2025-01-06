@@ -2,12 +2,9 @@ import WelcomeSection from "@/app/components/WelcomeSection";
 import Products from "@/app/components/Products";
 import Review from "@/app/components/Review";
 import React, { Suspense } from "react";
-import { populateDB } from "../../DB/PopulateDB";
 import ProductsSkeleton from "./components/ProductsSkeleton";
 
 export default async function Home() {
-  await populateDB();
-
   const numberOfReviews = 5;
 
   return (

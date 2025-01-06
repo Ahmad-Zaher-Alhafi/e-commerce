@@ -34,16 +34,19 @@ export const populateDB = async () => {
       price,
       image,
       rating,
+      description,
     }: {
       title: string;
       price: number;
       image: string;
       rating: { rate: number; count: number };
+      description: string;
     }) => ({
       name: title,
       price,
       imageUrl: image,
       rate: rating.rate,
+      description,
     })
   );
 
