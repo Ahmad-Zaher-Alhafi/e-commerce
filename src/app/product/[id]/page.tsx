@@ -152,7 +152,7 @@ const page = async ({ params }: { params: { id: string } }) => {
                 className="w-[25px] h-[25px]"
               />
             </div>
-            <button className="primary-button flex-1 flex-grow-[3] text-[14px] !py-[10px] lg:!py-[15px]">
+            <button className="primary-button flex-[3] text-[14px] !py-[10px] lg:!py-[15px]">
               Add to cart
             </button>
           </div>
