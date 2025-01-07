@@ -13,9 +13,7 @@ const Products = async ({ title }: { title: string }) => {
       </span>
 
       <div
-        className={
-          "flex flex-col gap-[24px] sm:gap-[36px] items-center w-full"
-        }
+        className={"flex flex-col gap-[24px] sm:gap-[36px] items-center w-full"}
       >
         <div
           className={
@@ -25,6 +23,7 @@ const Products = async ({ title }: { title: string }) => {
           {products?.map((product: ProductType) => (
             <Product
               key={product.id}
+              id={product.id}
               name={product.name}
               rate={product.rate}
               price={product.price}

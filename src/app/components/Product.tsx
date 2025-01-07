@@ -1,14 +1,19 @@
+"use client";
+
 import React from "react";
 import Rate from "@/app/components/Rate";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const Product = ({
+  id,
   name = "Product",
   rate = 4.5,
   price = 232,
   imgUrl = "https://t3.ftcdn.net/jpg/03/34/79/68/360_F_334796865_VVTjg49nbLgQPG6rgKDjVqSb5XUhBVsW.jpg",
   salePercent = 20,
 }: {
+  id: number;
   name: string;
   rate: number;
   price: number;
@@ -19,8 +24,19 @@ const Product = ({
     ? Math.floor(price - (price * salePercent) / 100)
     : price;
 
+  const router = useRouter();
+
+  const handleProductClick = () => {
+    router.push(`/product/${id}`);
+  };
+
   return (
-    <div className={"flex flex-col"}>
+    <div
+      onClick={handleProductClick}
+      className={
+        "flex flex-col hover:cursor-pointer hover:bg-[#F0EEED] rounded-[13px]"
+      }
+    >
       <Image
         width={295}
         height={200}
