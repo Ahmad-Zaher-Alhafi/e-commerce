@@ -1,4 +1,5 @@
 import React from "react";
+import Cart from "./Cart";
 
 const Header = () => {
   return (
@@ -68,7 +69,9 @@ const Header = () => {
           alt="search icon"
           className={"md:hidden"}
         />
-        <img src="/assets/svgs/cart.svg" alt="cart icon" />
+
+        <Cart></Cart>
+
         <img src="/assets/svgs/profile.svg" alt="profile icon" />
       </span>
     </header>
