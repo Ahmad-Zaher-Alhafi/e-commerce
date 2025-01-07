@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <header
       className={
-        "header h-[48px] flex justify-between gap-[4%] items-center custom-paddingX py-[40px] md:py-[48px]"
+        "header h-[48px] flex justify-between gap-[4%] items-center custom-paddingX sm:max-xl:px-[2%] py-[40px] md:py-[48px]"
       }
     >
       <span className={"flex gap-[16px] items-center"}>

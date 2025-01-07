@@ -11,14 +11,16 @@ export default async function Home() {
     <div className={"home"}>
       <WelcomeSection></WelcomeSection>
 
-      <div className={"flex flex-col gap-[40px] sm:gap-[64px] pt-[50px]"}>
+      <div
+        className={
+          "flex flex-col gap-[40px] sm:gap-[64px] pt-[50px] custom-paddingX"
+        }
+      >
         <Suspense fallback={<ProductsSkeleton title="New Arrivals" />}>
           <Products title={"New Arrivals"}></Products>
         </Suspense>
 
-        <div className={"custom-paddingX"}>
-          <hr className={"bg-black h-[2px] opacity-10"} />
-        </div>
+        <hr className={"custom-divider"} />
 
         <Suspense fallback={<ProductsSkeleton title="Top Selling" />}>
           <Products title={"Top Selling"}></Products>

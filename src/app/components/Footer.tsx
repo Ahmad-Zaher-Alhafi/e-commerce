@@ -176,7 +176,7 @@ const Footer = () => {
           <span className={"font-satoshi text-[14px] opacity-60"}>
             shop.com © 2000-2021, All rights reserved
           </span>
-          <div className={"flex gap-[10px]"}>
+          <div className={"flex flex-wrap gap-[10px]"}>
             <img src="/assets/svgs/visaCard.svg" alt="visa car image" />
             <img src="/assets/svgs/masterCard.svg" alt="master card image" />
             <img src="/assets/svgs/paypalCard.svg" alt="paypal card image" />

@@ -25,7 +25,7 @@ const WelcomeSection = () => {
           style.
         </p>
 
-        <button className={"primary-button mt-[4px]"}>Shop Now</button>
+        <button className={"primary-button mt-[4px] max-w-[210px]"}>Shop Now</button>
 
         <div
           className={

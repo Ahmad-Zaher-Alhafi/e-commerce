@@ -14,7 +14,7 @@ const Products = async ({ title }: { title: string }) => {
 
       <div
         className={
-          "flex flex-col gap-[24px] sm:gap-[36px] items-center w-full custom-paddingX"
+          "flex flex-col gap-[24px] sm:gap-[36px] items-center w-full"
         }
       >
         <div

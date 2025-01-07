@@ -2,7 +2,7 @@ import React from "react";
 import Rate from "@/app/components/Rate";
 
 const Review = ({
-  rate,
+  rate = 4.5,
   customerName = "Customer name",
   content = "Oh la la, a wonderful website, I really like it Oh la la, a wonderful website, I really like it",
 }: {

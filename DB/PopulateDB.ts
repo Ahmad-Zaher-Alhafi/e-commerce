@@ -1,81 +1,86 @@
 import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
 
 export const populateDB = async () => {
-  const productsCount = await prisma.product.count();
-
-  if (productsCount !== 0) return;
-
-  let response = await fetch(
-    "https://fakestoreapi.com/products/category/men's clothing"
-  );
-
-  if (!response.ok) {
-    console.error("Failed to fetch data");
-    return;
-  }
-
-  let products = await response.json();
-
-  response = await fetch(
-    "https://fakestoreapi.com/products/category/women's clothing"
-  );
-
-  if (!response.ok) {
-    console.error("Failed to fetch data");
-    return;
-  }
-
-  products = products.concat(await response.json());
-
-  const filteredProducts = products.map(
-    ({
-      title,
-      price,
-      image,
-      rating,
-      description,
-    }: {
-      title: string;
-      price: number;
-      image: string;
-      rating: { rate: number; count: number };
-      description: string;
-    }) => ({
-      name: title,
-      price,
-      imageUrl: image,
-      rate: rating.rate,
-      description,
-    })
-  );
-
-  const finalProducts = filteredProducts.map((product: any) => {
-    const randomColors = Array.from(
-      { length: Math.floor(Math.random() * 3) + 1 },
-      () => getRandomHexColor()
-    );
-
-    const randomSizes = Array.from(
-      { length: Math.floor(Math.random() * 9) + 1 },
-      () => getRandomSize()
-    );
-
-    // Ensure colors and sizes are not empty
-    product.colors = randomColors.length > 0 ? randomColors : ["#000000"]; // Default to black if empty
-    product.sizes = randomSizes.length > 0 ? randomSizes : ["medium"]; // Default to 'medium' if empty
-
-    product.salePercent = Math.floor(Math.random() * 101);
-    product.numInStock = Math.floor(Math.random() * 20) + 1;
-
-    return product;
-  });
+  const prisma = new PrismaClient();
 
   try {
-    await prisma.product.createMany({ data: finalProducts });
-    console.log("Products added successfully!");
-  } catch (error) {
-    console.error("Error inserting products:", error);
+    const productsCount = await prisma.product.count();
+
+    if (productsCount !== 0) return;
+
+    let response = await fetch(
+      "https://fakestoreapi.com/products/category/men's clothing"
+    );
+
+    if (!response.ok) {
+      console.error("Failed to fetch data");
+      return;
+    }
+
+    let products = await response.json();
+
+    response = await fetch(
+      "https://fakestoreapi.com/products/category/women's clothing"
+    );
+
+    if (!response.ok) {
+      console.error("Failed to fetch data");
+      return;
+    }
+
+    products = products.concat(await response.json());
+
+    const filteredProducts = products.map(
+      ({
+        title,
+        price,
+        image,
+        rating,
+        description,
+      }: {
+        title: string;
+        price: number;
+        image: string;
+        rating: { rate: number; count: number };
+        description: string;
+      }) => ({
+        name: title,
+        price,
+        imageUrl: image,
+        rate: rating.rate,
+        description,
+      })
+    );
+
+    const finalProducts = filteredProducts.map((product: any) => {
+      const randomColors = Array.from(
+        { length: Math.floor(Math.random() * 3) + 1 },
+        () => getRandomHexColor()
+      );
+
+      const randomSizes = Array.from(
+        { length: Math.floor(Math.random() * 9) + 1 },
+        () => getRandomSize()
+      );
+
+      // Ensure colors and sizes are not empty
+      product.colors = randomColors.length > 0 ? randomColors : ["#000000"]; // Default to black if empty
+      product.sizes = randomSizes.length > 0 ? randomSizes : ["medium"]; // Default to 'medium' if empty
+
+      product.salePercent = Math.floor(Math.random() * 101);
+      product.numInStock = Math.floor(Math.random() * 20) + 1;
+
+      return product;
+    });
+
+    try {
+      await prisma.product.createMany({ data: finalProducts });
+      console.log("Products added successfully!");
+    } catch (error) {
+      console.error("Error inserting products:", error);
+    }
+  } finally {
+    prisma.$disconnect();
   }
 };
 
