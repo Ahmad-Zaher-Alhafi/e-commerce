@@ -5,6 +5,7 @@ import Rate from "@/app/components/Rate";
 import Review from "@/app/components/Review";
 import Products from "@/app/components/Products";
 import ProductsSkeleton from "@/app/components/ProductsSkeleton";
+import ProductCustomizer from "@/app/components/ProductCustomizer";
 
 const page = async ({ params }: { params: { id: string } }) => {
   const { id } = await params;
@@ -14,8 +15,16 @@ const page = async ({ params }: { params: { id: string } }) => {
     return <div>Product not found</div>;
   }
 
-  const { name, rate, salePercent, price, description, colors, sizes } =
-    product;
+  const {
+    name,
+    rate,
+    salePercent,
+    price,
+    description,
+    colors,
+    sizes,
+    imageUrl,
+  } = product;
 
   const finalPrice = salePercent
     ? Math.floor(price - (price * salePercent) / 100)
@@ -70,6 +79,7 @@ const page = async ({ params }: { params: { id: string } }) => {
             />
           </div>
         </div>
+
         <div className="flex flex-col gap-[12px] justify-between">
           <span
             className={
@@ -108,54 +118,14 @@ const page = async ({ params }: { params: { id: string } }) => {
             {description}
           </p>
           <hr className={"custom-divider"}></hr>
-          <span className="font-satoshi text-[14px] sm:text-[16px] opacity-60">
-            Select Color
-          </span>
-          <div className="flex gap-[16px]">
-            {colors.map((color) => (
-              <button
-                key={color}
-                style={{ backgroundColor: color }}
-                className={`font-satoshi text-[14px] sm:text-[16px] opacity-60 rounded-full h-[39px] w-[39px]`}
-              ></button>
-            ))}
-          </div>
-          <hr className={"custom-divider"}></hr>
-          <span className="font-satoshi text-[14px] sm:text-[16px] opacity-60">
-            Choose Size
-          </span>
-          <div className="flex flex-wrap gap-[16px] overflow-auto sm:max-h-[112px]">
-            {sizes.map((size) => (
-              <button
-                key={Math.random()}
-                style={{ backgroundColor: size }}
-                className={`font-satoshi text-[14px] sm:text-[16px] text-nowrap text-white rounded-full py-[10px] sm:py-[12px] px-[5%] bg-black`}
-              >
-                {size}
-              </button>
-            ))}
-          </div>
-
-          <hr className={"custom-divider"}></hr>
-
-          <div className="flex gap-[12px] sm:gap-[20px]">
-            <div className="flex justify-between items-center gap-[18px] bg-[#F0F0F0] py-[10px] lg:py-[15px] px-[22px] rounded-[62px] flex-1 min-w-[150px] max-w-[236px]">
-              <img
-                src="/assets/svgs/minusIcon.svg"
-                alt="plus icon"
-                className="w-[25px] h-[25px]"
-              />
-              <span className="font-satoshi font-medium text-[20px]">1</span>
-              <img
-                src="/assets/svgs/plusIcon.svg"
-                alt="plus icon"
-                className="w-[25px] h-[25px]"
-              />
-            </div>
-            <button className="primary-button flex-[3] text-[14px] !py-[10px] lg:!py-[15px]">
-              Add to cart
-            </button>
-          </div>
+          <ProductCustomizer
+            id={Number(id)}
+            name={name}
+            sizes={sizes}
+            colors={colors}
+            price={finalPrice}
+            imageUrl={imageUrl}
+          ></ProductCustomizer>
         </div>
       </div>
 

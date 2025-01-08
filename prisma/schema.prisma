@@ -43,3 +43,14 @@ model Review {
   productId Int
   Product   Product @relation("ProductToReview", fields: [productId], references: [id], onDelete: Cascade)
 }
+
+model CartItem {
+  id        Int    @id @default(autoincrement())
+  productId Int
+  name      String @unique
+  size      String
+  color     String
+  price     Int
+  quantity  Int
+  imageUrl  String
+}

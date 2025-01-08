@@ -1,31 +1,40 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 const CartProduct = ({
-  id,
+  productId,
   name = "Product",
   price = 232,
   imgUrl = "https://t3.ftcdn.net/jpg/03/34/79/68/360_F_334796865_VVTjg49nbLgQPG6rgKDjVqSb5XUhBVsW.jpg",
   size = "small",
   color,
 }: {
-  id: number;
+  productId: number;
   name: string;
-  rate: number;
   price: number;
   imgUrl: string;
-  salePercent?: number | null;
   size: string;
   color: string;
 }) => {
+  const router = useRouter();
+
+  const handleShowProduct = () => {
+    router.push(`/product/${productId}`);
+  };
+
   return (
     <div className="flex gap-[14px]">
       <Image
         width={124}
         height={124}
         src={imgUrl}
+        unoptimized
         alt="product image"
-        className="rounded-[10px]"
+        className="w-[124px] h-[124px] rounded-[10px] border-2 border-[#F0EEED] p-[10px] hover:bg-[#F0EEED] cursor-pointer"
+        onClick={handleShowProduct}
       />
 
       <div className="flex flex-col justify-between flex-1">
@@ -42,10 +51,10 @@ const CartProduct = ({
           Size: <span className="opacity-60">{size}</span>
         </div>
         <div className="flex items-center gap-[10px] font-satoshi text-[12px]">
-          Color:{" "}
+          Color:
           <span
-            className="w-[15px] h-[15px] sm:w-[24px] sm:h-[24px] inline-block rounded-full"
-            style={{ backgroundColor: "red" }}
+            className=" w-[15px] h-[15px] sm:w-[24px] sm:h-[24px] inline-block rounded-full"
+            style={{ backgroundColor: color }}
           ></span>
         </div>
 
