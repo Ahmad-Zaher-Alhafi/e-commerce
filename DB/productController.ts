@@ -1,33 +1,28 @@
-import { PrismaClient } from "@prisma/client";
 import { populateDB } from "./PopulateDB";
+import { prismaInstance } from "./prismaClientSingleton";
 
 await populateDB();
 
-const prisma = new PrismaClient({
-  log: ["error"],
-});
-
 async function getProducts() {
   try {
-    return await prisma.product.findMany();
+    return await prismaInstance.product.findMany();
   } catch (error) {
     console.error("Failed to get products from DB: ", error);
-  } finally {
-    disconnect();
   }
 }
 
 async function getProductById(id: number) {
   try {
-    return await prisma.product.findUnique({
+    return await prismaInstance.product.findUnique({
       where: {
         id: id,
+      },
+      include: {
+        cartItem: true,
       },
     });
   } catch (error) {
     console.error("Failed to get products from DB: ", error);
-  } finally {
-    disconnect();
   }
 }
 
@@ -41,7 +36,7 @@ async function addCartItem(
   productId: number
 ) {
   try {
-    await prisma.cartItem.create({
+    return await prismaInstance.cartItem.create({
       data: {
         name: name,
         size: size,
@@ -54,23 +49,33 @@ async function addCartItem(
     });
   } catch (error) {
     console.error("Failed to add cart item to DB: ", error);
-  } finally {
-    disconnect();
+  }
+}
+
+async function deleteCartItem(id: number) {
+  try {
+    await prismaInstance.cartItem.delete({
+      where: {
+        id: id,
+      },
+    });
+  } catch (error) {
+    console.error("Failed to delete cart item from DB: ", error);
   }
 }
 
 async function getCartItems() {
   try {
-    return await prisma.cartItem.findMany();
+    return await prismaInstance.cartItem.findMany();
   } catch (error) {
     console.error("Failed to get cart items from DB: ", error);
-  } finally {
-    disconnect();
   }
 }
 
-async function disconnect() {
-  await prisma.$disconnect();
-}
-
-export { getProducts, getProductById, addCartItem, getCartItems };
+export {
+  getProducts,
+  getProductById,
+  addCartItem,
+  getCartItems,
+  deleteCartItem,
+};

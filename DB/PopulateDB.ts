@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Product } from "@prisma/client";
 
 export const populateDB = async () => {
   const prisma = new PrismaClient();
@@ -52,7 +52,7 @@ export const populateDB = async () => {
       })
     );
 
-    const finalProducts = filteredProducts.map((product: any) => {
+    const finalProducts = filteredProducts.map((product: Product) => {
       const randomColors = Array.from(
         { length: Math.floor(Math.random() * 3) + 1 },
         () => getRandomHexColor()

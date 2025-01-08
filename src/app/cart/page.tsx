@@ -1,4 +1,3 @@
-import React from "react";
 import CartProduct from "../components/CartProduct";
 import { getCartItems } from "../../../DB/productController";
 import { CartItem } from "@prisma/client";
@@ -18,16 +17,9 @@ const Cart = async () => {
             className="flex flex-col gap-[21px] border-[2px] border-[#F0EEED] rounded-[20px] px-[27px] py-[21px] flex-[1.5]
           max-h-[520px] overflow-auto"
           >
-            {cartItems?.map((item: CartItem, index: number) => (
-              <div key={item.id} className="flex flex-col gap-[21px]">
-                <CartProduct
-                  productId={item.productId}
-                  name={item.name}
-                  imgUrl={item.imageUrl}
-                  price={item.price}
-                  size={item.size}
-                  color={item.color}
-                ></CartProduct>
+            {cartItems?.map((cartItem: CartItem, index: number) => (
+              <div key={cartItem.id} className="flex flex-col gap-[21px]">
+                <CartProduct cartItem={cartItem}></CartProduct>
                 {index < cartItems.length - 1 && (
                   <hr className="custom-divider"></hr>
                 )}

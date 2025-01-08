@@ -21,9 +21,6 @@ const page = async ({ params }: { params: { id: string } }) => {
     salePercent,
     price,
     description,
-    colors,
-    sizes,
-    imageUrl,
   } = product;
 
   const finalPrice = salePercent
@@ -118,14 +115,7 @@ const page = async ({ params }: { params: { id: string } }) => {
             {description}
           </p>
           <hr className={"custom-divider"}></hr>
-          <ProductCustomizer
-            id={Number(id)}
-            name={name}
-            sizes={sizes}
-            colors={colors}
-            price={finalPrice}
-            imageUrl={imageUrl}
-          ></ProductCustomizer>
+          <ProductCustomizer product={product}></ProductCustomizer>
         </div>
       </div>
 

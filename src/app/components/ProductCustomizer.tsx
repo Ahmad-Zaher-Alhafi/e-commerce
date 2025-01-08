@@ -1,26 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { doDELETE, doPOST } from "../../../fetcher";
+import { Prisma } from "@prisma/client";
 
-const ProductCustomizer = ({
-  id,
-  name,
-  colors,
-  sizes,
-  price,
-  imageUrl,
-}: {
-  id: number;
-  name: string;
-  colors: string[];
-  sizes: string[];
-  price: number;
-  imageUrl: string;
-}) => {
-  const [selectedColor, setSelectedColor] = React.useState<string>(colors[0]);
-  const [selectedSize, setSelectedSize] = React.useState<string>(sizes[0]);
-  const [quantity, setQuantity] = React.useState<number>(1);
-  const [addingToCart, setAddingToCart] = React.useState<boolean>(false);
+type ProductWithRelations = Prisma.ProductGetPayload<{
+  include: {
+    cartItem: true;
+  };
+}>;
+
+const ProductCustomizer = ({ product }: { product: ProductWithRelations }) => {
+  const { id, name, colors, sizes, price, imageUrl, cartItem } = product;
+
+  const [selectedColor, setSelectedColor] = useState<string>(colors[0]);
+  const [selectedSize, setSelectedSize] = useState<string>(sizes[0]);
+  const [quantity, setQuantity] = useState<number>(1);
+  const [addingToCart, setAddingToCart] = useState<boolean>(false);
+  const [removingFromCart, setRemovingFromCart] = useState<boolean>(false);
+
+  const [cartItemId, setCartItemId] = useState<number | undefined>(
+    cartItem?.id
+  );
+
   const maxAllowedQuantity = 10;
 
   const handleSelectColor = (color: string) => {
@@ -44,31 +46,49 @@ const ProductCustomizer = ({
   };
 
   const handelAddClick = async () => {
+    if (addingToCart) return;
+
     setAddingToCart(true);
-    const response = await fetch("/api/cartItems", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        productId: id,
-        name: name,
-        size: selectedSize,
-        color: selectedColor,
-        price: price,
-        quantity: quantity,
-        imageUrl: imageUrl,
-      }),
+
+    const response = await doPOST(`/api/cartItems/${id}`, {
+      productId: id,
+      name: name,
+      size: selectedSize,
+      color: selectedColor,
+      price: price,
+      quantity: quantity,
+      imageUrl: imageUrl,
     });
 
     setAddingToCart(false);
 
+    const { cartItem } = await response.json();
+    setCartItemId(cartItem.id);
+
     if (!response.ok) {
-      console.error("Failed to add item to cart", response);
+      console.error("Failed to add item to cart");
       return;
     }
 
     console.log("Item added to cart");
+  };
+
+  const handelRemoveClick = async () => {
+    if (removingFromCart) return;
+
+    setRemovingFromCart(true);
+
+    const response = await doDELETE(`/api/cartItems/${cartItemId}`);
+
+    if (!response.ok) {
+      console.error("Failed to remove item from cart");
+      return;
+    }
+
+    setRemovingFromCart(false);
+    setCartItemId(undefined);
+
+    console.log("Item removed to cart");
   };
 
   return (
@@ -119,38 +139,54 @@ const ProductCustomizer = ({
 
       <hr className={"custom-divider"}></hr>
 
-      <div className="flex gap-[12px] sm:gap-[20px]">
-        <div className="flex justify-between items-center gap-[18px] bg-[#F0F0F0] py-[10px] lg:py-[15px] px-[22px] rounded-[62px] flex-1 min-w-[150px] max-w-[236px]">
-          <img
-            src="/assets/svgs/minusIcon.svg"
-            alt="plus icon"
-            className={`w-[25px] h-[25px] hover:cursor-pointer ${
-              quantity <= 1 && "opacity-60"
-            } ${quantity <= 1 && "hover:cursor-default"}`}
-            onClick={handleQuantityMinus}
-          />
-          <span className="font-satoshi font-medium text-[20px]">
-            {quantity}
-          </span>
-          <img
-            src="/assets/svgs/plusIcon.svg"
-            alt="plus icon"
-            className={`w-[25px] h-[25px] hover:cursor-pointer ${
-              quantity >= maxAllowedQuantity && "opacity-60"
-            } ${quantity >= maxAllowedQuantity && "hover:cursor-default"}`}
-            onClick={handleQuantityPlus}
-          />
+      {!cartItemId ? (
+        <div className="flex gap-[12px] sm:gap-[20px]">
+          {!addingToCart && (
+            <div className="flex justify-between items-center gap-[18px] bg-[#F0F0F0] py-[10px] lg:py-[15px] px-[22px] rounded-[62px] flex-1 min-w-[150px] max-w-[236px]">
+              <img
+                src="/assets/svgs/minusIcon.svg"
+                alt="plus icon"
+                className={`w-[25px] h-[25px] hover:cursor-pointer ${
+                  quantity <= 1 && "opacity-60"
+                } ${quantity <= 1 && "hover:cursor-default"}`}
+                onClick={handleQuantityMinus}
+              />
+              <span className="font-satoshi font-medium text-[20px]">
+                {quantity}
+              </span>
+              <img
+                src="/assets/svgs/plusIcon.svg"
+                alt="plus icon"
+                className={`w-[25px] h-[25px] hover:cursor-pointer ${
+                  quantity >= maxAllowedQuantity && "opacity-60"
+                } ${quantity >= maxAllowedQuantity && "hover:cursor-default"}`}
+                onClick={handleQuantityPlus}
+              />
+            </div>
+          )}
+          <button
+            className={`primary-button flex-[3] text-[14px] sm:text-[16px] !py-[10px] lg:!py-[15px] ${
+              addingToCart && "!text-opacity-60 !bg-[#F0F0F0] !text-black"
+            }`}
+            onClick={handelAddClick}
+            disabled={addingToCart}
+          >
+            {addingToCart ? "Adding to cart..." : "Add to cart"}
+          </button>
         </div>
-        <button
-          className={`primary-button flex-[3] text-[14px] !py-[10px] lg:!py-[15px] ${
-            addingToCart && "text-opacity-60"
-          } ${addingToCart && "bg-[#F0F0F0]"}`}
-          onClick={handelAddClick}
-          disabled={addingToCart}
-        >
-          {addingToCart ? "Adding to cart..." : "Add to cart"}
-        </button>
-      </div>
+      ) : (
+        <div className="flex gap-[12px] sm:gap-[20px]">
+          <button
+            className={`primary-button flex-[3] text-[14px] sm:text-[16px] !py-[10px] lg:!py-[15px] ${
+              removingFromCart && "!text-opacity-60 !bg-[#F0F0F0] !text-black"
+            }`}
+            onClick={handelRemoveClick}
+            disabled={removingFromCart}
+          >
+            {removingFromCart ? "Removing from cart..." : "Remove from cart"}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,36 +1,51 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { doDELETE } from "../../../fetcher";
+import { CartItem } from "@prisma/client";
 
-const CartProduct = ({
-  productId,
-  name = "Product",
-  price = 232,
-  imgUrl = "https://t3.ftcdn.net/jpg/03/34/79/68/360_F_334796865_VVTjg49nbLgQPG6rgKDjVqSb5XUhBVsW.jpg",
-  size = "small",
-  color,
-}: {
-  productId: number;
-  name: string;
-  price: number;
-  imgUrl: string;
-  size: string;
-  color: string;
-}) => {
+const CartProduct = ({ cartItem }: { cartItem: CartItem }) => {
+  const { id, productId, name, price, imageUrl, size, color } = cartItem;
+
+  const [removingFromCart, setRemovingFromCart] = useState<boolean>(false);
+  const [wasRemoved, setWasRemoved] = useState<boolean>(false);
+
   const router = useRouter();
 
   const handleShowProduct = () => {
     router.push(`/product/${productId}`);
   };
 
+  const handelRemoveClick = async () => {
+    if (removingFromCart) return;
+
+    setRemovingFromCart(true);
+
+    const response = await doDELETE(`/api/cartItems/${id}`);
+
+    if (!response.ok) {
+      console.error("Failed to remove item from cart");
+      return;
+    }
+
+    setRemovingFromCart(false);
+    setWasRemoved(true);
+
+    console.log("Item removed to cart");
+  };
+
+  if (wasRemoved) {
+    return;
+  }
+
   return (
     <div className="flex gap-[14px]">
       <Image
         width={124}
         height={124}
-        src={imgUrl}
+        src={imageUrl}
         unoptimized
         alt="product image"
         className="w-[124px] h-[124px] rounded-[10px] border-2 border-[#F0EEED] p-[10px] hover:bg-[#F0EEED] cursor-pointer"
@@ -38,13 +53,18 @@ const CartProduct = ({
       />
 
       <div className="flex flex-col justify-between flex-1">
-        <div className="flex justify-between items-center font-satoshi font-bold text-[20px]">
+        <div className="flex justify-between items-start font-satoshi font-bold text-[20px]">
           {name}
-          <img
-            src="/assets/svgs/trashIcon.svg"
-            alt="trash icon"
-            className="w-[16px] h-[16px]"
-          />
+          {removingFromCart ? (
+            <span className=" font-satoshi text-[#FF3333]">removing...</span>
+          ) : (
+            <img
+              onClick={handelRemoveClick}
+              src="/assets/svgs/trashIcon.svg"
+              alt="trash icon"
+              className="w-[16px] h-[16px] cursor-pointer"
+            />
+          )}
         </div>
 
         <div className="font-satoshi text-[12px]">
