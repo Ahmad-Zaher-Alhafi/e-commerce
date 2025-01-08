@@ -14,12 +14,13 @@ const Cart = async () => {
 
       {cartItems && cartItems.length > 0 ? (
         <div className="flex flex-col xl:flex-row gap-[20px]">
-          <div className="flex flex-col gap-[21px] border-[2px] border-[#F0EEED] rounded-[20px] px-[27px] py-[21px] flex-[1.5]
-          max-h-[520px] overflow-auto">
+          <div
+            className="flex flex-col gap-[21px] border-[2px] border-[#F0EEED] rounded-[20px] px-[27px] py-[21px] flex-[1.5]
+          max-h-[520px] overflow-auto"
+          >
             {cartItems?.map((item: CartItem, index: number) => (
-              <>
+              <div key={item.id}>
                 <CartProduct
-                  key={item.id}
                   productId={item.productId}
                   name={item.name}
                   imgUrl={item.imageUrl}
@@ -30,7 +31,7 @@ const Cart = async () => {
                 {index < cartItems.length - 1 && (
                   <hr className="custom-divider"></hr>
                 )}
-              </>
+              </div>
             ))}
           </div>
 
