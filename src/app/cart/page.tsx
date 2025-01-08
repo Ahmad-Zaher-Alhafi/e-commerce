@@ -19,7 +19,7 @@ const Cart = async () => {
           max-h-[520px] overflow-auto"
           >
             {cartItems?.map((item: CartItem, index: number) => (
-              <div key={item.id}>
+              <div key={item.id} className="flex flex-col gap-[21px]">
                 <CartProduct
                   productId={item.productId}
                   name={item.name}
