@@ -1,7 +1,12 @@
+"use client";
+
 import React from "react";
 import Cart from "./Cart";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
+  const router = useRouter();
+
   return (
     <header
       className={
@@ -16,8 +21,9 @@ const Header = () => {
         />
         <span
           className={
-            "logo font-integral font-bold text-[25px] sm:text-[32px] translate-y-[-3px] sm:translate-y-[-4px]"
+            "logo font-integral font-bold text-[25px] sm:text-[32px] translate-y-[-3px] sm:translate-y-[-4px] cursor-pointer"
           }
+          onClick={() => router.push("/")}
         >
           SHOP.CO
         </span>
