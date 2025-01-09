@@ -3,6 +3,7 @@ import Products from "@/app/components/Products";
 import Review from "@/app/components/Review";
 import React, { Suspense } from "react";
 import ProductsSkeleton from "./components/ProductsSkeleton";
+import Category from "./components/Category";
 
 export default async function Home() {
   const numberOfReviews = 5;
@@ -46,65 +47,33 @@ export default async function Home() {
               "flex flex-col justify-center sm:flex-row flex-wrap gap-[16px] sm:gap-[20px]"
             }
           >
-            <picture>
-              <source
-                srcSet="/assets/images/casualCategoryBig.png"
-                media="(min-width: 769px)"
-              />
-              <source
-                srcSet="/assets/images/casualCategory.png"
-                media={"(max-width: 768px)"}
-              />
-              <img
-                src="/assets/images/casualCategory.png"
-                alt="casual category image"
-              />
-            </picture>
+            <Category
+              minImgUrl="/assets/images/casualCategory.png"
+              minWidth={769}
+              maxImgUrl="/assets/images/casualCategoryBig.png"
+              maxWidth={768}
+            ></Category>
 
-            <picture>
-              <source
-                srcSet="/assets/images/formalCategoryBig.png"
-                media="(min-width: 769px)"
-              />
-              <source
-                srcSet="/assets/images/formalCategory.png"
-                media={"(max-width: 768px)"}
-              />
-              <img
-                src="/assets/images/formalCategory.png"
-                alt="casual category image"
-              />
-            </picture>
+            <Category
+              minImgUrl="/assets/images/formalCategory.png"
+              minWidth={769}
+              maxImgUrl="/assets/images/formalCategoryBig.png"
+              maxWidth={768}
+            ></Category>
 
-            <picture>
-              <source
-                srcSet="/assets/images/partCategoryBig.png"
-                media="(min-width: 769px)"
-              />
-              <source
-                srcSet="/assets/images/partCategory.png"
-                media={"(max-width: 768px)"}
-              />
-              <img
-                src="/assets/images/partCategory.png"
-                alt="casual category image"
-              />
-            </picture>
+            <Category
+              minImgUrl="/assets/images/partCategory.png"
+              minWidth={769}
+              maxImgUrl="/assets/images/partCategoryBig.png"
+              maxWidth={768}
+            ></Category>
 
-            <picture>
-              <source
-                srcSet="/assets/images/gymCategoryBig.png"
-                media="(min-width: 769px)"
-              />
-              <source
-                srcSet="/assets/images/gymCategory.png"
-                media={"(max-width: 768px)"}
-              />
-              <img
-                src="/assets/images/gymCategory.png"
-                alt="casual category image"
-              />
-            </picture>
+            <Category
+              minImgUrl="/assets/images/gymCategory.png"
+              minWidth={769}
+              maxImgUrl="/assets/images/gymCategoryBig.png"
+              maxWidth={768}
+            ></Category>
           </div>
         </div>
       </div>

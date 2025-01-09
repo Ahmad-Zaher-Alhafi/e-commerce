@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "./NavigationButton";
 
 const WelcomeSection = () => {
   return (
@@ -25,7 +26,9 @@ const WelcomeSection = () => {
           style.
         </p>
 
-        <button className={"primary-button mt-[4px] max-w-[210px]"}>Shop Now</button>
+        <Button className={"primary-button mt-[4px] max-w-[210px]"}>
+          Shop Now
+        </Button>
 
         <div
           className={

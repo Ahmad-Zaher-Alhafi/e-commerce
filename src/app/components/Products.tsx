@@ -2,6 +2,7 @@ import React from "react";
 import Product from "@/app/components/Product";
 import { getProducts } from "../../../DB/productController";
 import { Product as ProductType } from "@prisma/client"; // Import your Product type from Prisma
+import Button from "./NavigationButton";
 
 const Products = async ({ title }: { title: string }) => {
   const products = await getProducts();
@@ -25,7 +26,7 @@ const Products = async ({ title }: { title: string }) => {
           ))}
         </div>
 
-        <button className={"secondary-button"}>View all</button>
+        <Button className={"secondary-button"}>View All</Button>
       </div>
     </div>
   );
