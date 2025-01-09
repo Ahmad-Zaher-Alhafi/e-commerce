@@ -58,10 +58,7 @@ export const populateDB = async () => {
         () => getRandomHexColor()
       );
 
-      const randomSizes = Array.from(
-        { length: Math.floor(Math.random() * 9) + 1 },
-        () => getRandomSize()
-      );
+      const randomSizes = getSizes(Math.floor(Math.random() * 9) + 1);
 
       // Ensure colors and sizes are not empty
       product.colors = randomColors.length > 0 ? randomColors : ["#000000"]; // Default to black if empty
@@ -91,7 +88,7 @@ function getRandomHexColor() {
   return `#${hex}`;
 }
 
-function getRandomSize() {
+function getSizes(num: number) {
   const sizes = [
     "xx-small",
     "x-small",
@@ -103,6 +100,6 @@ function getRandomSize() {
     "3x-large",
     "4x-large",
   ];
-  const randomIndex = Math.floor(Math.random() * sizes.length);
-  return sizes[randomIndex];
+
+  return sizes.slice(0, num + 1);
 }
