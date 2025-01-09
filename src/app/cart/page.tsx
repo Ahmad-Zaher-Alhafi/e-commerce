@@ -78,15 +78,19 @@ const Cart = async () => {
               </div>
 
               <div className="flex gap-[12px] justify-between">
-                <div className="flex justify-start items-center gap-[20px] bg-[#F0F0F0] py-[10px] px-[20px] rounded-[62px] min-w-[44px] flex-[1.5]">
-                  <img
-                    src="/assets/svgs/tagIcon.svg"
-                    alt="plus icon"
-                    className="w-[21px] h-[21px]"
-                  />
-                  <span className="font-satoshi font-medium text-[14px] text-nowrap sm:text-[16px] opacity-40">
-                    Add promo code
-                  </span>
+                <div className="flex justify-start items-center gap-[20px] rounded-[62px] min-w-[44px] flex-[1.5]">
+                  <div className="relative hidden md:block flex-1">
+                    <input
+                      type="text"
+                      placeholder="Search for products..."
+                      className="pl-10 py-[10px] pr-4 border rounded-[62px] w-full bg-[#F0F0F0] font-satoshi font-medium text-[14px] text-nowrap sm:text-[16px]"
+                    />
+                    <img
+                      src="/assets/svgs/tagIcon.svg"
+                      alt="search icon"
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 opacity-60"
+                    />
+                  </div>
                 </div>
 
                 <button className="primary-button flex-1">Apply</button>
