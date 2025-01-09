@@ -4,22 +4,26 @@ import React from "react";
 import Rate from "@/app/components/Rate";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Product as ProductType } from "@prisma/client";
 
 const Product = ({
-  id,
-  name = "Product",
-  rate = 4.5,
-  price = 232,
-  imgUrl = "https://t3.ftcdn.net/jpg/03/34/79/68/360_F_334796865_VVTjg49nbLgQPG6rgKDjVqSb5XUhBVsW.jpg",
-  salePercent = 20,
+  product,
+  width = "w-[295px]",
+  height = "h-[200px] sm:h-[298px]",
 }: {
-  id: number;
-  name: string;
-  rate: number;
-  price: number;
-  imgUrl: string;
-  salePercent?: number | null;
+  product: ProductType;
+  width?: string;
+  height?: string;
 }) => {
+  const {
+    id,
+    name = "Product",
+    rate = 4.5,
+    price = 232,
+    imageUrl = "https://t3.ftcdn.net/jpg/03/34/79/68/360_F_334796865_VVTjg49nbLgQPG6rgKDjVqSb5XUhBVsW.jpg",
+    salePercent = 20,
+  } = product;
+
   const finalPrice = salePercent
     ? Math.floor(price - (price * salePercent) / 100)
     : price;
@@ -38,17 +42,19 @@ const Product = ({
       }
     >
       <Image
-        width={295}
-        height={200}
-        src={imgUrl}
+        width={200}
+        height={298}
+        src={imageUrl}
         alt="product image"
         unoptimized
-        className={
-          "h-[200px] sm:h-[298px] rounded-[13px] sm:rounded-[20px] border-2 border-[#F0EEED] p-[20px]"
-        }
+        className={`${height} ${width} rounded-[13px] sm:rounded-[20px] border-2 border-[#F0EEED] p-[10px]`}
       />
 
-      <span className={"font-satoshi font-bold text-[16px] sm:text-[20px]"}>
+      <span
+        className={
+          "font-satoshi font-bold text-[16px] sm:text-[20px] ellipsis-text"
+        }
+      >
         {name}
       </span>
 

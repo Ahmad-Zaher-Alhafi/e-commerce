@@ -21,15 +21,7 @@ const Products = async ({ title }: { title: string }) => {
           }
         >
           {products?.map((product: ProductType) => (
-            <Product
-              key={product.id}
-              id={product.id}
-              name={product.name}
-              rate={product.rate}
-              price={product.price}
-              imgUrl={product.imageUrl}
-              salePercent={product.salePercent}
-            ></Product>
+            <Product key={product.id} product={product}></Product>
           ))}
         </div>
 

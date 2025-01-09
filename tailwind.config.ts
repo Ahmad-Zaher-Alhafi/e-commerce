@@ -34,10 +34,19 @@ export default {
         ".show-scrollbar": {
           "scrollbar-width": "auto",
         },
+
         ".custom-divider": {
           backgroundColor: "black",
           height: "2px",
           opacity: "0.1",
+        },
+
+        ".ellipsis-text": {
+          display: "-webkit-box",
+          "-webkit-box-orient": "vertical",
+          "-webkit-line-clamp": "var(--line-clamp, 1)" /* Limit to 3 lines */,
+          "line-clamp": "var(--line-clamp, 1)",
+          overflow: "hidden",
         },
       });
     },

@@ -32,10 +32,4 @@ body {
   @apply border border-black border-opacity-10 text-nowrap rounded-[62px] py-[13px] sm:py-[15px] max-w-[190px] sm:max-w-[230px] font-satoshi font-medium w-full;
 }
 
-.ellipsis-text {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3; /* Limit to 3 lines */
-  line-clamp:3;
-  overflow: hidden;
-}
+

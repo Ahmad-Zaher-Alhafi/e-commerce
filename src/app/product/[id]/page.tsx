@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { CSSProperties, Suspense } from "react";
 import { getProductById } from "../../../../DB/productController";
 import Image from "next/image";
 import Rate from "@/app/components/Rate";
@@ -15,17 +15,15 @@ const page = async ({ params }: { params: { id: string } }) => {
     return <div>Product not found</div>;
   }
 
-  const {
-    name,
-    rate,
-    salePercent,
-    price,
-    description,
-  } = product;
+  const { name, rate, salePercent, price, description } = product;
 
   const finalPrice = salePercent
     ? Math.floor(price - (price * salePercent) / 100)
     : price;
+
+    interface CustomCSSProperties extends CSSProperties {
+      "--line-clamp"?: number;
+    }
 
   return (
     <div className="flex flex-col custom-paddingX sm:max-xl:px-[2%] items-center gap-[50px]">
@@ -111,7 +109,10 @@ const page = async ({ params }: { params: { id: string } }) => {
               </div>
             )}
           </div>
-          <p className="font-satoshi text-[14px] sm:text-[16px] opacity-60 ellipsis-text">
+          <p
+            style={{ "--line-clamp": 3 } as CustomCSSProperties}
+            className="font-satoshi text-[14px] sm:text-[16px] opacity-60 ellipsis-text"
+          >
             {description}
           </p>
           <hr className={"custom-divider"}></hr>
