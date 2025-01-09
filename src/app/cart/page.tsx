@@ -5,6 +5,25 @@ import { CartItem } from "@prisma/client";
 const Cart = async () => {
   const cartItems = await getCartItems();
 
+  let subtotal;
+  const discountPercentage = 20;
+  let discount;
+  const deliveryFee = 0;
+  let total;
+
+  calculate();
+
+  function calculate() {
+    if (!cartItems) return;
+
+    subtotal = cartItems.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
+    discount = Math.floor(subtotal * (discountPercentage / 100));
+    total = subtotal - discount + deliveryFee;
+  }
+
   return (
     <div className="flex flex-col gap-[24px] custom-paddingX">
       <span className="font-integral font-bold text-[32px] sm:text-[40px]">
@@ -35,17 +54,19 @@ const Cart = async () => {
               <div>
                 <div className="flex justify-between items-center font-satoshi text-[16px] sm:text-[20px]">
                   <span className="opacity-60">Subtotal</span>
-                  <span className="font-bold">$654</span>
+                  <span className="font-bold">${subtotal}</span>
                 </div>
 
                 <div className="flex justify-between items-center font-satoshi text-[16px] sm:text-[20px]">
-                  <span className="opacity-60">Discount (-20%)</span>
-                  <span className="font-bold text-[#FF3333]">-$654</span>
+                  <span className="opacity-60">
+                    Discount (-{discountPercentage}%)
+                  </span>
+                  <span className="font-bold text-[#FF3333]">-${discount}</span>
                 </div>
 
                 <div className="flex justify-between items-center font-satoshi text-[16px] sm:text-[20px]">
                   <span className="opacity-60">Delivery fee</span>
-                  <span className="font-bold">$654</span>
+                  <span className="font-bold">${deliveryFee}</span>
                 </div>
               </div>
 
@@ -53,7 +74,7 @@ const Cart = async () => {
 
               <div className="flex justify-between items-center font-satoshi text-[16px] sm:text-[20px]">
                 <span>Total</span>
-                <span className="font-bold">$654</span>
+                <span className="font-bold">${total}</span>
               </div>
 
               <div className="flex gap-[12px] justify-between">

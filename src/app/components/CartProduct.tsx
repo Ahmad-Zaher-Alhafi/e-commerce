@@ -3,14 +3,18 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { doDELETE } from "../../../fetcher";
+import { doDELETE, doPUT } from "../lib/fetcher";
 import { CartItem } from "@prisma/client";
+import { maxProductAllowedQuantity } from "../lib/constants";
+import revalidate from "../actions/revalidator";
+import { doAfter } from "../lib/delayer";
 
 const CartProduct = ({ cartItem }: { cartItem: CartItem }) => {
   const { id, productId, name, price, imageUrl, size, color } = cartItem;
 
   const [removingFromCart, setRemovingFromCart] = useState<boolean>(false);
   const [wasRemoved, setWasRemoved] = useState<boolean>(false);
+  const [quantity, setQuantity] = useState<number>(cartItem.quantity);
 
   const router = useRouter();
 
@@ -32,16 +36,52 @@ const CartProduct = ({ cartItem }: { cartItem: CartItem }) => {
 
     setRemovingFromCart(false);
     setWasRemoved(true);
+    await revalidate("/cart");
 
     console.log("Item removed to cart");
   };
+
+  const handleQuantityPlus = async () => {
+    if (quantity < maxProductAllowedQuantity) {
+      const newQuantitiy = quantity + 1;
+      setQuantity(newQuantitiy);
+      setItemQuantity(newQuantitiy);
+    }
+  };
+
+  const handleQuantityMinus = async () => {
+    if (quantity > 1) {
+      const newQuantitiy = quantity - 1;
+      setQuantity(newQuantitiy);
+      setItemQuantity(newQuantitiy);
+    }
+  };
+
+  function setItemQuantity(quantity: number) {
+    cartItem.quantity = quantity;
+
+    doAfter(.3, async () => {
+      const response = await doPUT(`/api/cartItems/${id}`, cartItem);
+
+      if (!response.ok) {
+        console.error("Failed to update item quantity in cart");
+        return;
+      }
+
+      console.log("Item quantity updated in cart");
+
+      await revalidate("/cart");
+    });
+
+    setQuantity(quantity);
+  }
 
   if (wasRemoved) {
     return;
   }
 
   return (
-    <div className="flex gap-[14px]">
+    <div className="flex gap-[14px] items-center">
       <Image
         width={124}
         height={124}
@@ -53,7 +93,7 @@ const CartProduct = ({ cartItem }: { cartItem: CartItem }) => {
       />
 
       <div className="flex flex-col justify-between flex-1">
-        <div className="flex justify-between items-start font-satoshi font-bold text-[20px]">
+        <div className="flex justify-between gap-[10px] items-start font-satoshi font-bold text-[20px]">
           {name}
           {removingFromCart ? (
             <span className=" font-satoshi text-[#FF3333]">removing...</span>
@@ -85,13 +125,17 @@ const CartProduct = ({ cartItem }: { cartItem: CartItem }) => {
             <img
               src="/assets/svgs/minusIcon.svg"
               alt="plus icon"
-              className="w-[12.5px] h-[12.5px]"
+              className="w-[12.5px] h-[12.5px] cursor-pointer"
+              onClick={handleQuantityMinus}
             />
-            <span className="font-satoshi font-medium text-[14px]">1</span>
+            <span className="font-satoshi font-medium text-[14px]">
+              {quantity}
+            </span>
             <img
               src="/assets/svgs/plusIcon.svg"
               alt="plus icon"
-              className="w-[12.5px] h-[12.5px]"
+              className="w-[12.5px] h-[12.5px] cursor-pointer"
+              onClick={handleQuantityPlus}
             />
           </div>
         </div>

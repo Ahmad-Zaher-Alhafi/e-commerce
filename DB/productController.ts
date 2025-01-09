@@ -1,3 +1,4 @@
+import { CartItem } from "@prisma/client";
 import { populateDB } from "./PopulateDB";
 import { prismaInstance } from "./prismaClientSingleton";
 
@@ -72,10 +73,32 @@ async function getCartItems() {
   }
 }
 
+async function updateCartItem(id: number, cartItem: CartItem) {
+  try {
+    return await prismaInstance.cartItem.update({
+      where: {
+        id: id,
+      },
+      data: {
+        name: cartItem.name,
+        size: cartItem.size,
+        color: cartItem.color,
+        price: cartItem.price,
+        quantity: cartItem.quantity,
+        imageUrl: cartItem.imageUrl,
+        productId: cartItem.productId,
+      },
+    });
+  } catch (error) {
+    console.error("Failed to update cart item in DB: ", error);
+  }
+}
+
 export {
   getProducts,
   getProductById,
   addCartItem,
   getCartItems,
   deleteCartItem,
+  updateCartItem,
 };

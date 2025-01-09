@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { doDELETE, doPOST } from "../../../fetcher";
+import { doDELETE, doPOST } from "../lib/fetcher";
 import { Prisma } from "@prisma/client";
+import { maxProductAllowedQuantity } from "../lib/constants";
 
 type ProductWithRelations = Prisma.ProductGetPayload<{
   include: {
@@ -23,8 +24,6 @@ const ProductCustomizer = ({ product }: { product: ProductWithRelations }) => {
     cartItem?.id
   );
 
-  const maxAllowedQuantity = 10;
-
   const handleSelectColor = (color: string) => {
     setSelectedColor(color);
   };
@@ -34,7 +33,7 @@ const ProductCustomizer = ({ product }: { product: ProductWithRelations }) => {
   };
 
   const handleQuantityPlus = () => {
-    if (quantity < maxAllowedQuantity) {
+    if (quantity < maxProductAllowedQuantity) {
       setQuantity(quantity + 1);
     }
   };
@@ -158,8 +157,8 @@ const ProductCustomizer = ({ product }: { product: ProductWithRelations }) => {
                 src="/assets/svgs/plusIcon.svg"
                 alt="plus icon"
                 className={`w-[25px] h-[25px] hover:cursor-pointer ${
-                  quantity >= maxAllowedQuantity && "opacity-60"
-                } ${quantity >= maxAllowedQuantity && "hover:cursor-default"}`}
+                  quantity >= maxProductAllowedQuantity && "opacity-60"
+                } ${quantity >= maxProductAllowedQuantity && "hover:cursor-default"}`}
                 onClick={handleQuantityPlus}
               />
             </div>

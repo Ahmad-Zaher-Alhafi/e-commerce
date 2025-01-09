@@ -2,6 +2,7 @@ import { CartItem } from "@prisma/client";
 import {
   addCartItem,
   deleteCartItem,
+  updateCartItem,
 } from "../../../../../DB/productController";
 import { NextResponse } from "next/server";
 
@@ -40,6 +41,27 @@ export async function POST(req: Request) {
   } catch (error) {
     return NextResponse.json(
       { message: "Failed to add item to cart", error },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  const cartItem: CartItem = await req.json();
+  const id = Number((await params).id);
+
+  try {
+    const returnedCartItem = await updateCartItem(id, cartItem);
+    return NextResponse.json({
+      message: "Item updated in cart",
+      returnedCartItem,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Failed to update cart item", error },
       { status: 500 }
     );
   }

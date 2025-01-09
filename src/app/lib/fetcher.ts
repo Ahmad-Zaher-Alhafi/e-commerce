@@ -14,6 +14,32 @@ async function doPOST(path: string, data: object): Promise<Response> {
   return response;
 }
 
+async function doPUT(path: string, data: object): Promise<Response> {
+  try {
+    const response = await fetch(path, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      console.error("Failed to do PUT fetch", response);
+    }
+
+    return response;
+  } catch (error) {
+    if (error.name === "AbortError") {
+      console.log("Request aborted");
+    } else {
+      console.error("Update failed", error);
+    }
+
+    return new Response(null, { status: 500 });
+  }
+}
+
 async function doDELETE(path: string, data?: object): Promise<Response> {
   const response = await fetch(path, {
     method: "DELETE",
@@ -30,4 +56,4 @@ async function doDELETE(path: string, data?: object): Promise<Response> {
   return response;
 }
 
-export { doPOST, doDELETE };
+export { doPOST, doDELETE, doPUT };
