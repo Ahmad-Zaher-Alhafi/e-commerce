@@ -4,6 +4,7 @@ import React from "react";
 import Cart from "./Cart";
 import { useRouter, usePathname } from "next/navigation";
 import { doAfter } from "../lib/delayer";
+import Link from "next/link";
 
 const Header = () => {
   const router = useRouter();
@@ -54,24 +55,25 @@ const Header = () => {
 
         <ul className={"hidden sm:flex gap-[24px] items-center"}>
           <li>
-            <a href="" className={"font-satoshi"}>
+            <Link href="/products/all" className={"font-satoshi text-nowrap"}>
               Shop
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="" className={"font-satoshi text-nowrap"}>
+            <Link
+              href="/products/onSale"
+              className={"font-satoshi text-nowrap"}
+            >
               On Sale
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="" className={"font-satoshi text-nowrap"}>
+            <Link
+              href="/products/newArrivals"
+              className={"font-satoshi text-nowrap"}
+            >
               New Arrivals
-            </a>
-          </li>
-          <li>
-            <a href="" className={"font-satoshi"}>
-              Brands
-            </a>
+            </Link>
           </li>
         </ul>
 

@@ -4,7 +4,7 @@ import { prismaInstance } from "./prismaClientSingleton";
 
 await populateDB();
 
-async function getProducts(searchTerm?: string) {
+async function getProducts(searchTerm?: string, onSale?: boolean) {
   try {
     return await prismaInstance.product.findMany({
       where: {
@@ -12,6 +12,7 @@ async function getProducts(searchTerm?: string) {
           contains: searchTerm,
           mode: "insensitive",
         },
+        salePercent: onSale ? { gt: 0 } : undefined,
       },
     });
   } catch (error) {
