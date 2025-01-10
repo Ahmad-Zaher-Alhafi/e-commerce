@@ -65,7 +65,7 @@ const Product = ({
           ${finalPrice}
         </span>
 
-        {salePercent && (
+        {salePercent != undefined && salePercent > 0 && (
           <div className={"flex gap-[5px] sm:gap-[12px] items-center"}>
             <span
               className={`font-satoshi font-bold text-[20px] sm:text-[24px] ${
