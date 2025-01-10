@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Cart from "./Cart";
 import { useRouter, usePathname } from "next/navigation";
 import { doAfter } from "../lib/delayer";
@@ -9,23 +9,21 @@ import Link from "next/link";
 const Header = () => {
   const router = useRouter();
   const pathName = usePathname();
+  const [searchTerm, setSearchTerm] = useState("");
 
   const isHomePage = pathName === "/";
 
   const handleSearchChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = e.target.value.trim();
-
-    console.log(pathName);
+    setSearchTerm(searchTerm);
+    const route =
+      `/products/${pathName}` + searchTerm ? `?search=${searchTerm}` : "";
 
     doAfter(0.5, () => {
-      if (pathName.startsWith("/products")) {
-        if (!searchTerm) {
-          router.replace("/products/all");
-          return;
-        }
-        router.replace(`/products/all?search=${searchTerm}`);
+      if (isHomePage) {
+        router.push(route);
       } else {
-        router.push(`/products/all?search=${searchTerm}`);
+        router.replace(route);
       }
     });
   };
@@ -55,13 +53,20 @@ const Header = () => {
 
         <ul className={"hidden sm:flex gap-[24px] items-center"}>
           <li>
-            <Link href="/products/all" className={"font-satoshi text-nowrap"}>
+            <Link
+              href={
+                `/products/all` + (searchTerm ? `?search=${searchTerm}` : "")
+              }
+              className={"font-satoshi text-nowrap"}
+            >
               Shop
             </Link>
           </li>
           <li>
             <Link
-              href="/products/onSale"
+              href={
+                `/products/onSale` + (searchTerm ? `?search=${searchTerm}` : "")
+              }
               className={"font-satoshi text-nowrap"}
             >
               On Sale
@@ -69,7 +74,10 @@ const Header = () => {
           </li>
           <li>
             <Link
-              href="/products/newArrivals"
+              href={
+                `/products/newArrivals` +
+                (searchTerm ? `?search=${searchTerm}` : "")
+              }
               className={"font-satoshi text-nowrap"}
             >
               New Arrivals

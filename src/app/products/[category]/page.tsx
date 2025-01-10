@@ -25,7 +25,7 @@ const page = async ({
         {search && `, Search: ${search}`}
       </span>
 
-      <div className="grid grid-cols-[repeat(auto-fit,172px)] lg:grid-cols-[repeat(auto-fit,295px)] gridc gap-[14px] lg:gap-[20px] place-content-between">
+      <div className="grid grid-cols-[repeat(auto-fit,172px)] lg:grid-cols-[repeat(auto-fit,295px)] gridc gap-[14px] lg:gap-[20px]">
         {products?.map((product: ProductType) => (
           <Product
             key={product.id}
