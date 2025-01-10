@@ -1,39 +1,66 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Cart from "./Cart";
 import { useRouter, usePathname } from "next/navigation";
 import { doAfter } from "../lib/delayer";
 import Link from "next/link";
+import Search from "./Search";
 
 const Header = () => {
   const router = useRouter();
-  const pathName = usePathname();
+  let pathName = usePathname();
   const [searchTerm, setSearchTerm] = useState("");
+  const [showSearchItem, setShowSearchItem] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const isHomePage = pathName === "/";
+  const isProductsPage = pathName.startsWith("/products");
 
   const handleSearchChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isProductsPage) {
+      pathName = "/products/all/";
+    }
+
     const searchTerm = e.target.value.trim();
+
+    if (searchInputRef.current) {
+      searchInputRef.current.value = searchTerm;
+    }
+
     setSearchTerm(searchTerm);
-    const route =
-      `/products/${pathName}` + searchTerm ? `?search=${searchTerm}` : "";
+
+    const route = `${pathName}` + (searchTerm ? `?search=${searchTerm}` : "");
 
     doAfter(0.5, () => {
-      if (isHomePage) {
-        router.push(route);
-      } else {
+      if (isProductsPage) {
         router.replace(route);
+      } else {
+        router.push(route);
       }
     });
   };
 
+  const handleSearchClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowSearchItem(true);
+  };
+
+  const handleClickOutside = () => {
+    setShowSearchItem(false);
+  };
+
+  useEffect(() => {
+    const handleDocumentClick = () => handleClickOutside();
+
+    window.addEventListener("click", handleDocumentClick);
+
+    return () => {
+      window.removeEventListener("click", handleDocumentClick);
+    };
+  }, []);
+
   return (
-    <header
-      className={
-        "header flex flex-col gap-[24px] custom-paddingX sm:max-xl:px-[2%] py-[20px] md:py-[24px]"
-      }
-    >
+    <header className="header relative flex flex-col gap-[24px] custom-paddingX sm:max-xl:px-[2%] py-[20px] md:py-[24px]">
       <div className="flex justify-between gap-[4%] items-center h-[48px]">
         <span className={"flex gap-[16px] items-center"}>
           <img
@@ -42,9 +69,7 @@ const Header = () => {
             className={"sm:hidden"}
           />
           <span
-            className={
-              "logo font-integral font-bold text-[25px] sm:text-[32px] translate-y-[-3px] sm:translate-y-[-4px] cursor-pointer"
-            }
+            className="logo font-integral font-bold text-[25px] sm:text-[32px] translate-y-[-3px] sm:translate-y-[-4px] cursor-pointer"
             onClick={() => router.push("/")}
           >
             SHOP.CO
@@ -89,8 +114,9 @@ const Header = () => {
           <input
             type="text"
             placeholder="Search for products..."
-            className=" pl-10 py-2 pr-4 border rounded-[62px] w-full bg-[#F0F0F0] font-satoshi"
+            className="pl-10 py-2 pr-4 border rounded-[62px] w-full bg-[#F0F0F0] font-satoshi"
             onChange={handleSearchChanged}
+            ref={searchInputRef}
           />
           <img
             src="/assets/svgs/search.svg"
@@ -107,16 +133,24 @@ const Header = () => {
           <img
             src="/assets/svgs/search.svg"
             alt="search icon"
-            className={"md:hidden"}
+            className={"md:hidden cursor-pointer"}
+            onClick={handleSearchClick}
           />
 
-          <Cart></Cart>
+          <Cart />
 
           <img src="/assets/svgs/profile.svg" alt="profile icon" />
         </span>
       </div>
 
-      {!isHomePage && <hr className="custom-divider"></hr>}
+      {!isProductsPage && <hr className="custom-divider"></hr>}
+
+      {showSearchItem && (
+        <Search
+          handleSearchChanged={handleSearchChanged}
+          value={searchTerm}
+        ></Search>
+      )}
     </header>
   );
 };
