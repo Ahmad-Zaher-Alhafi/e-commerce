@@ -4,9 +4,16 @@ import { prismaInstance } from "./prismaClientSingleton";
 
 await populateDB();
 
-async function getProducts() {
+async function getProducts(searchTerm?: string) {
   try {
-    return await prismaInstance.product.findMany();
+    return await prismaInstance.product.findMany({
+      where: {
+        name: {
+          contains: searchTerm,
+          mode: "insensitive",
+        },
+      },
+    });
   } catch (error) {
     console.error("Failed to get products from DB: ", error);
   }

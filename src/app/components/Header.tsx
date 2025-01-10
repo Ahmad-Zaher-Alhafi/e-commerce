@@ -3,12 +3,31 @@
 import React from "react";
 import Cart from "./Cart";
 import { useRouter, usePathname } from "next/navigation";
+import { doAfter } from "../lib/delayer";
 
 const Header = () => {
   const router = useRouter();
   const pathName = usePathname();
 
   const isHomePage = pathName === "/";
+
+  const handleSearchChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchTerm = e.target.value.trim();
+
+    console.log(pathName);
+
+    doAfter(0.5, () => {
+      if (pathName.startsWith("/products")) {
+        if (!searchTerm) {
+          router.replace("/products/all");
+          return;
+        }
+        router.replace(`/products/all?search=${searchTerm}`);
+      } else {
+        router.push(`/products/all?search=${searchTerm}`);
+      }
+    });
+  };
 
   return (
     <header
@@ -61,6 +80,7 @@ const Header = () => {
             type="text"
             placeholder="Search for products..."
             className=" pl-10 py-2 pr-4 border rounded-[62px] w-full bg-[#F0F0F0] font-satoshi"
+            onChange={handleSearchChanged}
           />
           <img
             src="/assets/svgs/search.svg"

@@ -3,10 +3,17 @@ import React from "react";
 import { getProducts } from "../../../../DB/productController";
 import { Product as ProductType } from "@prisma/client";
 
-const page = async ({ params }: { params: { category: string } }) => {
+const page = async ({
+  params,
+  searchParams,
+}: {
+  params: { category: string };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) => {
   const { category } = await params;
+  const { search } = await searchParams;
 
-  const products = await getProducts();
+  const products = await getProducts(search);
 
   const width = "w-[172px] lg:w-[295px]";
   const height = "h-[174px] lg:h-[298px]";
