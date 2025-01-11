@@ -126,8 +126,8 @@ const ProductCustomizer = ({ product }: { product: ProductWithRelations }) => {
             className={`font-satoshi text-[14px] sm:text-[16px] text-nowrap ${
               selectedSize === size ? "text-white" : "text-black"
             } ${
-              selectedSize === size ? "text-opacity-100" : "text-opacity-60"
-            } rounded-full py-[10px] sm:py-[12px] px-[5%] 
+              selectedSize === size  ? "text-opacity-100" : "text-opacity-60"
+            } rounded-full py-[10px] sm:py-[12px] px-[5%] hover:bg-black hover:text-white hover:text-opacity-100
               ${selectedSize === size ? "bg-black" : "bg-[#F0F0F0]"}`}
             onClick={() => handleSelectSize(size)}
           >

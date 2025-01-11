@@ -227,9 +227,10 @@ const Footer = () => {
           </div>
 
           <button
-            className={
-              "font-satoshi font-medium text-[14px] bg-white rounded-full w-full py-[10px]"
-            }
+           className={
+            "font-satoshi font-medium text-[14px] bg-white hover:bg-black hover:text-white border-2 box-border rounded-full w-full py-[10px]"
+          }
+          
           >
             Subscribe to news letter
           </button>
