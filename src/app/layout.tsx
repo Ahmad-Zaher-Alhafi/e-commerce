@@ -55,7 +55,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${satoshi.variable} ${integral.variable}`}>
+      <body className={`${satoshi.variable} ${integral.variable} flex flex-col h-screen`}>
         <SignUpHeader></SignUpHeader>
         <Header></Header>
         {children}
