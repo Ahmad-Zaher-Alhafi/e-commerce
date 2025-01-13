@@ -6,9 +6,9 @@ const Review = ({
   customerName = "Customer name",
   content = "Oh la la, a wonderful website, I really like it Oh la la, a wonderful website, I really like it",
 }: {
-  rate: number;
-  customerName: string;
-  content: string;
+  rate?: number;
+  customerName?: string;
+  content?: string;
 }) => {
   return (
     <div
