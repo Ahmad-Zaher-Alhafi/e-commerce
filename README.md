@@ -1,5 +1,5 @@
 # ❓ About
-Shop.co is an e-commerence responsive full-stack website that is built using Next.js, try it here: https://shop-cx0lvocmu-ahmad-zaher-alhafis-projects.vercel.app/
+Shop.co is an e-commerence responsive full-stack website that is built using Next.js, try it here: https://shopco-mu.vercel.app/
 
 # 🛠️ Used tools:
 - Next.js for frontend and restful API endpoints
