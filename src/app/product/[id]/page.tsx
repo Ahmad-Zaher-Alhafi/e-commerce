@@ -7,7 +7,7 @@ import Products from "@/app/components/Products";
 import ProductsSkeleton from "@/app/components/ProductsSkeleton";
 import ProductCustomizer from "@/app/components/ProductCustomizer";
 
-const page = async ({ params }: { params: { id: string } }) => {
+const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const product = await getProductById(Number(id));
 

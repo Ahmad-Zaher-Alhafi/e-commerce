@@ -7,7 +7,7 @@ const page = async ({
   params,
   searchParams,
 }: {
-  params: { category: string };
+  params: Promise<{ category: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
   const { category } = await params;

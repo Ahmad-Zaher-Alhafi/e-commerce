@@ -48,7 +48,7 @@ export async function POST(req: Request) {
 
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const cartItem: CartItem = await req.json();
   const id = Number((await params).id);
@@ -69,9 +69,9 @@ export async function PUT(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const id = Number(params.id);
+  const id = Number((await params).id);
   try {
     await deleteCartItem(id);
     return NextResponse.json({ message: "Item was deleted from cart" });
