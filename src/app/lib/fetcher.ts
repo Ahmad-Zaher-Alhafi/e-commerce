@@ -30,12 +30,7 @@ async function doPUT(path: string, data: object): Promise<Response> {
 
     return response;
   } catch (error) {
-    if (error.name === "AbortError") {
-      console.log("Request aborted");
-    } else {
-      console.error("Update failed", error);
-    }
-
+    console.error("Update failed", error);
     return new Response(null, { status: 500 });
   }
 }
