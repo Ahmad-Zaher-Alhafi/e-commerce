@@ -1,0 +1,7 @@
+{
+  "build": {
+    "env": {
+      "DATABASE_URL": "postgresql://neondb_owner:i9KNa8vDutLM@ep-green-king-a2jbt975.eu-central-1.aws.neon.tech/neondb?sslmode=require"
+    }
+  }
+}
