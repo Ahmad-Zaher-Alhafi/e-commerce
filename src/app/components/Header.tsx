@@ -6,8 +6,9 @@ import { useRouter, usePathname } from "next/navigation";
 import { doAfter } from "../lib/delayer";
 import Link from "next/link";
 import Search from "./Search";
+import UserLogo from "./UserLogo";
 
-const Header = () => {
+const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const router = useRouter();
   let pathName = usePathname();
   const [searchTerm, setSearchTerm] = useState("");
@@ -139,7 +140,7 @@ const Header = () => {
 
           <Cart />
 
-          <img src="/assets/svgs/profile.svg" alt="profile icon" />
+          <UserLogo isLoggedIn={isLoggedIn}></UserLogo>
         </span>
       </div>
 

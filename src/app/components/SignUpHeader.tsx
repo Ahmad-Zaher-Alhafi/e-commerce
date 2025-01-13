@@ -1,6 +1,9 @@
+import Link from "next/link";
 import React from "react";
 
-const SignUpHeader = () => {
+const SignUpHeader = ({ isHidden }: { isHidden: boolean }) => {
+  if (isHidden) return;
+
   return (
     <div
       className={
@@ -8,8 +11,15 @@ const SignUpHeader = () => {
       }
     >
       <div className={"font-satoshi mx-auto text-[12px] sm:text-[14px]"}>
-        Sign up and get 20% off to your first order. Sign Up Now
+        Sign up and get 20% off to your first order.
+        <Link
+          href="/signup"
+          className={"underline underline-offset-4 ml-[5px]"}
+        >
+          Sign Up Now
+        </Link>
       </div>
+
       <img
         src="/assets/svgs/cross.svg"
         alt="cross icon"
