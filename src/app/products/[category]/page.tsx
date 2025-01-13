@@ -8,7 +8,7 @@ const page = async ({
   searchParams,
 }: {
   params: Promise<{ category: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }) => {
   const { category } = await params;
   const { search } = await searchParams;
