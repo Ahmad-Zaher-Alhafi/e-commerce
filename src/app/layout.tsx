@@ -74,6 +74,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <meta property="og:image" content="/images/screenshot.png"></meta>
       <body
         className={`${satoshi.variable} ${integral.variable} flex flex-col h-screen`}
       >
