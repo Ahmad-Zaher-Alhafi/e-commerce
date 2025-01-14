@@ -5,6 +5,7 @@ import Rate from "@/app/components/Rate";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Product as ProductType } from "@prisma/client";
+import { motion } from "motion/react";
 
 const Product = ({
   product,
@@ -35,11 +36,11 @@ const Product = ({
   };
 
   return (
-    <div
+    <motion.div
+      initial={{ scale: 1 }}
+      whileHover={{ scale: 1.1 }}
       onClick={handleProductClick}
-      className={
-        "flex flex-col hover:cursor-pointer hover:bg-[#F0EEED] rounded-[13px]"
-      }
+      className={"flex flex-col hover:cursor-pointer rounded-[13px] py-[20px]"}
     >
       <Image
         width={200}
@@ -84,7 +85,7 @@ const Product = ({
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 export default Product;

@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -16,9 +17,14 @@ const Button = ({
   };
 
   return (
-    <button className={className} onClick={handleClick}>
+    <motion.button
+      className={className}
+      onClick={handleClick}
+      animate={{ y: [-20, 0], opacity: [0, 1] }}
+      transition={{ duration: 1 }}
+    >
       {children}
-    </button>
+    </motion.button>
   );
 };
 

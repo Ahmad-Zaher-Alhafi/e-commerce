@@ -79,7 +79,7 @@ const Cart = async () => {
 
               <div className="flex gap-[12px] justify-between">
                 <div className="flex justify-start items-center gap-[20px] rounded-[62px] min-w-[44px] flex-[1.5]">
-                  <div className="relative hidden md:block flex-1">
+                  <div className="relative flex-1">
                     <input
                       type="text"
                       placeholder="Search for products..."

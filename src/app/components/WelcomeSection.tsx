@@ -1,5 +1,8 @@
 import React from "react";
 import Button from "./NavigationButton";
+import * as motion from "motion/react-client";
+import AnimatedText from "./AnimatedText";
+import SeamlessScroll from "./SeamlessScroll";
 
 const WelcomeSection = () => {
   return (
@@ -10,21 +13,25 @@ const WelcomeSection = () => {
           "gap-[20px] pt-[40px] lg:max-w-[40%] z-[10] sm:box-content"
         }
       >
-        <div
+        <motion.div
+          animate={{ x: [-50, 0], opacity: [0, 1] }}
+          transition={{ duration: 1 }}
           className={
             "font-integral font-bold text-[clamp(36px,4vw,8rem)] leading-[100%]"
           }
         >
           FIND CLOTHES THAT MATCHES YOUR STYLE
-        </div>
+        </motion.div>
 
-        <p
+        <motion.p
+          animate={{ x: [50, 0], opacity: [0, 1] }}
+          transition={{ duration: 1 }}
           className={"font-satoshi text-[clamp(14px,1.5vw,8rem)] opacity-[60%]"}
         >
           Browse through our diverse range of meticulously crafted garments,
           designed to bring out your individuality and cater to your sense of
           style.
-        </p>
+        </motion.p>
 
         <Button className={"primary-button mt-[4px] max-w-[210px]"}>
           Shop Now
@@ -35,45 +42,56 @@ const WelcomeSection = () => {
             "flex justify-center gap-[27px] flex-wrap px-[28px] sm:px-0"
           }
         >
-          <div className={"flex flex-col flex-1 sm:gap-2.5"}>
-            <span className={"font-satoshi font-bold text-2xl xl:text-[40px]"}>
-              200+
-            </span>
+          <motion.div
+            className={"flex flex-col flex-1 sm:gap-2.5"}
+            animate={{ y: [-20, 0], opacity: [0, 1] }}
+            transition={{ duration: 0.3 }}
+          >
+            <AnimatedText to={200}></AnimatedText>
+
             <span className={"font-satoshi text-xs opacity-60  xl:text-[16px]"}>
               International Brands
             </span>
-          </div>
+          </motion.div>
 
           <div className={"bg-black opacity-[10%] w-[1px]"}></div>
 
-          <div className={"flex flex-col flex-1 sm:gap-2.5"}>
-            <span
-              className={"font-satoshi font-bold text-2xl  xl:text-[40px] "}
-            >
-              2,000+
-            </span>
+          <motion.div
+            className={"flex flex-col flex-1 sm:gap-2.5"}
+            animate={{ y: [-20, 0], opacity: [0, 1] }}
+            transition={{ duration: 0.6 }}
+          >
+            <AnimatedText to={2000}></AnimatedText>
             <span className={"font-satoshi text-xs opacity-60  xl:text-[16px]"}>
               High-Quality Products
             </span>
-          </div>
+          </motion.div>
 
           <div
             className={"bg-black opacity-[10%] w-[1px] hidden xs:block"}
           ></div>
 
-          <div className={"flex flex-col sm:gap-2.5"}>
-            <span className={"font-satoshi font-bold text-2xl  xl:text-[40px]"}>
-              30,000+
-            </span>
+          <motion.div
+            className={"flex flex-col sm:gap-2.5"}
+            animate={{ y: [-20, 0], opacity: [0, 1] }}
+            transition={{ duration: 1 }}
+          >
+            <AnimatedText to={30000}></AnimatedText>
             <span className={"font-satoshi text-xs opacity-60  xl:text-[16px]"}>
               Happy Customers
             </span>
-          </div>
+          </motion.div>
         </div>
       </div>
 
-      <div className={"flex justify-center bg-[#F2F0F1] relative"}>
-        <picture className={"relative"}>
+      <div
+        className={"flex justify-center bg-[#F2F0F1] relative overflow-hidden"}
+      >
+        <motion.picture
+          className={"relative"}
+          animate={{ x: [40, 0], opacity: [0, 1] }}
+          transition={{ duration: 1 }}
+        >
           <source
             srcSet="/assets/images/mainImageBig.png"
             media="(min-width: 1441px)"
@@ -89,35 +107,47 @@ const WelcomeSection = () => {
           <img src="/assets/images/mainImageSmall.png" alt="Main Image" />
 
           <div>
-            <img
+            <motion.img
+              initial={{ scale: 0 }}
+              animate={{ scale: [0.5, 1] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
               className={
-                "absolute top-1/3 left-10 right-0 lg:left-1/2 lg:right-1/2 transform -translate-y-[30px] lg:translate-x-20"
+                "absolute top-1/3 left-10 right-0 lg:left-[55%] lg:right-1/2 transform -translate-y-[30px] lg:translate-x-20"
               }
               src="/assets/svgs/smallStar.svg"
               alt="small star icon"
             />
 
-            <img
+            <motion.img
+              initial={{ scale: 0 }}
+              animate={{ scale: [0.5, 1] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
               className={
-                "absolute top-1/4 right-10 transform -translate-y-[70px]"
+                "absolute top-[10%] right-10 lg:right-[10%] transform -translate-y-[70px]"
               }
               src="/assets/svgs/bigStart.svg"
               alt="big start icon"
             />
           </div>
-        </picture>
+        </motion.picture>
       </div>
 
-      <div
-        className={
-          "bg-black flex flex-wrap gap-[34px] justify-center py-[40px]"
-        }
-      >
-        <img src="/assets/svgs/versLogo.svg" alt="versace image" />
-        <img src="/assets/svgs/zaraLogo.svg" alt="zara image" />
-        <img src="/assets/svgs/gucciLogo.svg" alt="gucci image" />
-        <img src="/assets/svgs/pradaLogo.svg" alt="prada image" />
-        <img src="/assets/svgs/calvinLogo.svg" alt="calvin klein image" />
+      <div className=" text-white bg-black py-[40px] overflow-hidden">
+        <SeamlessScroll>
+          <img src="/assets/svgs/versLogo.svg" alt="versace image" />
+          <img src="/assets/svgs/zaraLogo.svg" alt="zara image" />
+          <img src="/assets/svgs/gucciLogo.svg" alt="gucci image" />
+          <img src="/assets/svgs/pradaLogo.svg" alt="prada image" />
+          <img src="/assets/svgs/calvinLogo.svg" alt="calvin klein image" />
+        </SeamlessScroll>
       </div>
     </section>
   );

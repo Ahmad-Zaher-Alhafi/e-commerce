@@ -18,7 +18,7 @@ const Products = async ({ title }: { title: string }) => {
       >
         <div
           className={
-            "grid grid-flow-col auto-cols-[minmax(198px,1fr)] sm:auto-cols-[minmax(295px,1fr)] gap-[16px] sm:gap-[20px] px-customPaddingX w-full overflow-auto"
+            "grid grid-flow-col auto-cols-[minmax(198px,1fr)] sm:auto-cols-[minmax(295px,1fr)] gap-[16px] sm:gap-[20px] px-customPaddingX w-full overflow-hidden"
           }
         >
           {products?.map((product: ProductType) => (
