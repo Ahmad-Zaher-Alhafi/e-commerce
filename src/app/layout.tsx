@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Shop.co",
     description: "Shop your clothes with us.",
-    url: "https://shop-cx0lvocmu-ahmad-zaher-alhafis-projects.vercel.app/",
+    url: "https://shopco-mu.vercel.app/",
     siteName: "Shop.co",
     images: [
       {
