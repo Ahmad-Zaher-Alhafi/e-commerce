@@ -2,7 +2,7 @@ import React from "react";
 import Button from "./NavigationButton";
 import * as motion from "motion/react-client";
 import AnimatedText from "./AnimatedText";
-import SeamlessScroll from "./SeamlessScroll";
+import AutoScroll from "./AutoScroll";
 
 const WelcomeSection = () => {
   return (
@@ -140,14 +140,62 @@ const WelcomeSection = () => {
         </motion.picture>
       </div>
 
-      <div className=" text-white bg-black py-[40px] overflow-hidden">
-        <SeamlessScroll>
-          <img src="/assets/svgs/versLogo.svg" alt="versace image" />
-          <img src="/assets/svgs/zaraLogo.svg" alt="zara image" />
-          <img src="/assets/svgs/gucciLogo.svg" alt="gucci image" />
-          <img src="/assets/svgs/pradaLogo.svg" alt="prada image" />
-          <img src="/assets/svgs/calvinLogo.svg" alt="calvin klein image" />
-        </SeamlessScroll>
+      <div className="text-white bg-black py-[40px] overflow-hidden">
+        <AutoScroll dragAble={false}>
+          <div className="flex gap-[75px] sm:gap-[200px]">
+          <img
+            src="/assets/svgs/versLogo.svg"
+            alt="versace image"
+            draggable={false}
+          />
+          <img
+            src="/assets/svgs/zaraLogo.svg"
+            alt="zara image"
+            draggable={false}
+          />
+          <img
+            src="/assets/svgs/gucciLogo.svg"
+            alt="gucci image"
+            draggable={false}
+          />
+          <img
+            src="/assets/svgs/pradaLogo.svg"
+            alt="prada image"
+            draggable={false}
+          />
+          <img
+            src="/assets/svgs/calvinLogo.svg"
+            alt="calvin klein image"
+            draggable={false}
+          />
+
+          <img
+            src="/assets/svgs/versLogo.svg"
+            alt="versace image"
+            draggable={false}
+          />
+          <img
+            src="/assets/svgs/zaraLogo.svg"
+            alt="zara image"
+            draggable={false}
+          />
+          <img
+            src="/assets/svgs/gucciLogo.svg"
+            alt="gucci image"
+            draggable={false}
+          />
+          <img
+            src="/assets/svgs/pradaLogo.svg"
+            alt="prada image"
+            draggable={false}
+          />
+          <img
+            src="/assets/svgs/calvinLogo.svg"
+            alt="calvin klein image"
+            draggable={false}
+          />
+          </div>
+        </AutoScroll>
       </div>
     </section>
   );

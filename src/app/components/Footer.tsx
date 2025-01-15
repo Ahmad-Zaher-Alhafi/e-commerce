@@ -1,8 +1,12 @@
+import * as motion from "motion/react-client";
 import React from "react";
 
 const Footer = () => {
   return (
-    <footer
+    <motion.footer
+      whileInView={{ y: [50, 0], opacity: [0, 1] }}
+      transition={{ duration: 1 }}
+      viewport={{ once: true }}
       className={
         "bg-[#F0F0F0] custom-paddingX mt-[184px] pt-[190px] sm:pt-[140px] pb-[78px] flex flex-col gap-[40px] relative flex-1"
       }
@@ -227,16 +231,15 @@ const Footer = () => {
           </div>
 
           <button
-           className={
-            "font-satoshi font-medium text-[14px] bg-white hover:bg-black hover:text-white border-2 box-border rounded-full w-full py-[10px]"
-          }
-          
+            className={
+              "font-satoshi font-medium text-[14px] bg-white hover:bg-black hover:text-white border-2 box-border rounded-full w-full py-[10px]"
+            }
           >
             Subscribe to news letter
           </button>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 };
 export default Footer;

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Rate from "@/app/components/Rate";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -30,19 +30,32 @@ const Product = ({
     : price;
 
   const router = useRouter();
+  const [mousePositionOnDown, setMousePositionOnDown] = useState({
+    x: 0,
+    y: 0,
+  });
 
-  const handleProductClick = () => {
+  const handleProductClick = (e: React.MouseEvent) => {
+    if (Math.abs(mousePositionOnDown.x - e.clientX) > 5) return;
     router.push(`/product/${id}`);
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setMousePositionOnDown({ x: e.clientX, y: e.clientY });
   };
 
   return (
     <motion.div
-      initial={{ scale: 1 }}
-      whileHover={{ scale: 1.1 }}
-      onClick={handleProductClick}
+      draggable={false}
+      whileHover={{ scale: 1.1, transition: { duration: 0.1 } }}
+      whileInView={{ scale: [1.1, 1], transition: { duration: 0.5 } }}
+      viewport={{ once: true }}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleProductClick}
       className={"flex flex-col hover:cursor-pointer rounded-[13px] py-[20px]"}
     >
       <Image
+        draggable={false}
         width={200}
         height={298}
         src={imageUrl}

@@ -4,9 +4,10 @@ import Review from "@/app/components/Review";
 import React, { Suspense } from "react";
 import ProductsSkeleton from "./components/ProductsSkeleton";
 import Category from "./components/Category";
+import AutoScroll from "./components/AutoScroll";
 
 export default async function Home() {
-  const numberOfReviews = 5;
+  const numberOfReviews = 8;
 
   return (
     <div className={"home"}>
@@ -52,6 +53,7 @@ export default async function Home() {
               minWidth={769}
               maxImgUrl="/assets/images/casualCategoryBig.png"
               maxWidth={768}
+              direction={-1}
             ></Category>
 
             <Category
@@ -59,6 +61,7 @@ export default async function Home() {
               minWidth={769}
               maxImgUrl="/assets/images/formalCategoryBig.png"
               maxWidth={768}
+              direction={1}
             ></Category>
 
             <Category
@@ -66,6 +69,7 @@ export default async function Home() {
               minWidth={769}
               maxImgUrl="/assets/images/partCategoryBig.png"
               maxWidth={768}
+              direction={-1}
             ></Category>
 
             <Category
@@ -73,6 +77,7 @@ export default async function Home() {
               minWidth={769}
               maxImgUrl="/assets/images/gymCategoryBig.png"
               maxWidth={768}
+              direction={1}
             ></Category>
           </div>
         </div>
@@ -102,21 +107,19 @@ export default async function Home() {
         </div>
 
         <div className={"relative"}>
-          <div
-            className={
-              "flex justify-center gap-[20px] overflow-auto hide-scrollbar sm:show-scrollbar"
-            }
-          >
-            {[...Array(numberOfReviews)].map(() => {
-              return (
-                <Review
-                  key={Math.random()}
-                  rate={5}
-                  customerName={"Jasem"}
-                ></Review>
-              );
-            })}
-          </div>
+          <AutoScroll>
+            <div className={"flex gap-[20px]"}>
+              {[...Array(numberOfReviews)].map(() => {
+                return (
+                  <Review
+                    key={Math.random()}
+                    rate={5}
+                    customerName={"Jasem"}
+                  ></Review>
+                );
+              })}
+            </div>
+          </AutoScroll>
 
           <div className="hidden sm:block absolute top-0 left-0 w-[8%] h-full backdrop-blur-[1.5px]"></div>
           <div className="hidden sm:block absolute top-0 right-0 w-[8%] h-full backdrop-blur-[1.5px]"></div>
